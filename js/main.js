@@ -31,10 +31,16 @@
   // ===========================================
   // Portfolio Data
   // ===========================================
+  // Реальные номера файлов в каждой папке (без пропусков)
+  const portfolioFiles = {
+    1: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,36,37,38,39,40,41,42,43,44,45],
+    2: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74],
+    3: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45]
+  };
   const portfolioData = {
-    1: { count: 45, loaded: 0, images: [] },
-    2: { count: 74, loaded: 0, images: [] },
-    3: { count: 45, loaded: 0, images: [] }
+    1: { files: portfolioFiles[1], loaded: 0, images: [] },
+    2: { files: portfolioFiles[2], loaded: 0, images: [] },
+    3: { files: portfolioFiles[3], loaded: 0, images: [] }
   };
   let currentProject = '1';
   let currentLightboxIndex = 0;
@@ -256,46 +262,122 @@
     return `img/portfolio/${project}/${num}.webp`;
   }
 
-  function loadPortfolioImages(project, count = 8, append = false) {
+  // Паттерны блоков для сетки 6 колонок
+  // Каждый паттерн - это набор элементов, которые вместе образуют прямоугольник
+  const gridPatterns = [
+    // Паттерн 1: Большое вертикальное (2x4) + 4 маленьких (2x2 каждое)
+    [
+      { col: 2, row: 4 }, // большое вертикальное
+      { col: 2, row: 2 }, // маленькое
+      { col: 2, row: 2 }, // маленькое
+      { col: 2, row: 2 }, // маленькое
+      { col: 2, row: 2 }, // маленькое
+    ],
+    // Паттерн 2: Широкое горизонтальное (4x2) + 2 вертикальных (2x4)
+    [
+      { col: 4, row: 2 }, // широкое горизонтальное
+      { col: 2, row: 4 }, // вертикальное
+      { col: 2, row: 2 }, // маленькое
+      { col: 2, row: 2 }, // маленькое
+    ],
+    // Паттерн 3: 3 средних (2x3 каждое) 
+    [
+      { col: 2, row: 3 },
+      { col: 2, row: 3 },
+      { col: 2, row: 3 },
+    ],
+    // Паттерн 4: Большое (3x3) + 3 маленьких
+    [
+      { col: 3, row: 3 },
+      { col: 3, row: 3 },
+      { col: 3, row: 3 },
+      { col: 3, row: 3 },
+    ],
+    // Паттерн 5: 6 квадратных (2x2)
+    [
+      { col: 2, row: 2 },
+      { col: 2, row: 2 },
+      { col: 2, row: 2 },
+      { col: 2, row: 2 },
+      { col: 2, row: 2 },
+      { col: 2, row: 2 },
+    ],
+  ];
+
+  let currentPatternIndex = 0;
+
+  function getNextPattern() {
+    const pattern = gridPatterns[currentPatternIndex];
+    currentPatternIndex = (currentPatternIndex + 1) % gridPatterns.length;
+    return pattern;
+  }
+
+  function loadPortfolioImages(project, patternsToLoad = 2, append = false) {
     const data = portfolioData[project];
-    if (!data) return;
+    if (!data || !portfolioGrid) return;
 
     if (!append) {
       portfolioGrid.innerHTML = '';
       data.loaded = 0;
       data.images = [];
+      currentPatternIndex = 0;
+      portfolioGrid.classList.remove('stagger--visible');
     }
 
-    const start = data.loaded + 1;
-    const end = Math.min(start + count - 1, data.count);
+    const files = data.files;
+    let imagesAdded = 0;
     
-    for (let i = start; i <= end; i++) {
-      const path = generateImagePath(project, i);
-      const imageIndex = data.images.length; // Индекс в массиве загруженных изображений
-      data.images.push({ path, num: i });
+    // Загружаем указанное количество паттернов
+    for (let p = 0; p < patternsToLoad; p++) {
+      const pattern = getNextPattern();
       
-      const item = document.createElement('div');
-      item.className = 'portfolio__item';
-      item.innerHTML = `<img src="${path}" alt="Дизайн интерьера - проект ${project}, изображение ${i}" loading="lazy">`;
-      item.addEventListener('click', () => openLightbox(imageIndex));
-      portfolioGrid.appendChild(item);
-    }
-
-    data.loaded = end;
-
-    // Toggle load more button
-    if (loadMoreBtn) {
-      if (data.loaded >= data.count) {
-        loadMoreBtn.style.display = 'none';
-      } else {
-        loadMoreBtn.style.display = '';
+      for (let i = 0; i < pattern.length; i++) {
+        if (data.loaded >= files.length) break;
+        
+        const fileNum = files[data.loaded];
+        const path = generateImagePath(project, fileNum);
+        const imageIndex = data.images.length;
+        data.images.push({ path, num: fileNum });
+        
+        const item = document.createElement('div');
+        item.className = 'portfolio__item';
+        item.style.gridColumn = `span ${pattern[i].col}`;
+        item.style.gridRow = `span ${pattern[i].row}`;
+        
+        if (append) {
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0)';
+        }
+        
+        const img = document.createElement('img');
+        img.src = path;
+        img.alt = `Дизайн интерьера - проект ${project}, изображение ${fileNum}`;
+        img.loading = 'lazy';
+        
+        item.appendChild(img);
+        item.addEventListener('click', () => openLightbox(imageIndex));
+        portfolioGrid.appendChild(item);
+        
+        data.loaded++;
+        imagesAdded++;
       }
     }
 
-    // Trigger animation
-    setTimeout(() => {
-      portfolioGrid.classList.add('stagger--visible');
-    }, 100);
+    // Toggle load more button
+    if (loadMoreBtn) {
+      if (data.loaded >= files.length) {
+        loadMoreBtn.style.display = 'none';
+      } else {
+        loadMoreBtn.style.display = 'block';
+      }
+    }
+
+    // Trigger animation only for initial load
+    if (!append) {
+      setTimeout(() => {
+        portfolioGrid.classList.add('stagger--visible');
+      }, 100);
+    }
   }
 
   // Portfolio tabs
@@ -305,19 +387,19 @@
       tab.classList.add('portfolio__tab--active');
       
       currentProject = tab.dataset.project;
-      portfolioData[currentProject].loaded = 0;
-      portfolioGrid.classList.remove('stagger--visible');
-      loadPortfolioImages(currentProject);
+      loadPortfolioImages(currentProject, 2, false); // Загружаем 2 паттерна
     });
   });
 
   // Load more
-  loadMoreBtn.addEventListener('click', () => {
-    loadPortfolioImages(currentProject, 8, true);
-  });
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+      loadPortfolioImages(currentProject, 2, true); // Добавляем 2 паттерна
+    });
+  }
 
   // Initial load
-  loadPortfolioImages('1');
+  loadPortfolioImages('1', 2);
 
   // ===========================================
   // Lightbox
@@ -465,6 +547,44 @@
       }
     });
   });
+
+  // ===========================================
+  // Reviews Load More
+  // ===========================================
+  const loadMoreReviewsBtn = document.getElementById('loadMoreReviews');
+  const hiddenReviews = document.querySelectorAll('.review-card--hidden');
+  
+  if (loadMoreReviewsBtn && hiddenReviews.length > 0) {
+    let reviewsShown = 0;
+    const reviewsToShow = 4;
+    
+    loadMoreReviewsBtn.addEventListener('click', () => {
+      const reviewsToDisplay = Array.from(hiddenReviews).slice(reviewsShown, reviewsShown + reviewsToShow);
+      
+      reviewsToDisplay.forEach(review => {
+        review.classList.remove('review-card--hidden');
+        review.style.opacity = '0';
+        review.style.transform = 'translateY(20px)';
+        
+        // Анимация появления
+        setTimeout(() => {
+          review.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          review.style.opacity = '1';
+          review.style.transform = 'translateY(0)';
+        }, 10);
+      });
+      
+      reviewsShown += reviewsToDisplay.length;
+      
+      // Скрыть кнопку, если все отзывы показаны
+      if (reviewsShown >= hiddenReviews.length) {
+        loadMoreReviewsBtn.style.display = 'none';
+      }
+    });
+  } else if (loadMoreReviewsBtn && hiddenReviews.length === 0) {
+    // Скрыть кнопку, если нет скрытых отзывов
+    loadMoreReviewsBtn.style.display = 'none';
+  }
 
 })();
 
