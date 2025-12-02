@@ -244,6 +244,9 @@
     object-fit: cover;
     object-position: center 5%;
   }
+  .service-card {
+    margin: 0!important;
+  }
 
   .review-card {
     margin: 0!important;
