@@ -1,0 +1,436 @@
+/* =============================================
+   ANNA PAKSELEVA DESIGN STUDIO
+   Tablet Styles (768px - 1199px)
+   ============================================= */
+
+/* ===========================================
+   TABLET OVERRIDES
+   =========================================== */
+@media (min-width: 768px) and (max-width: 1199px) {
+  :root {
+    --font-size-hero: 42px;
+    --font-size-xxl: 32px;
+    --font-size-xl: 24px;
+    --space-section: 80px;
+    --container-padding: 24px;
+  }
+
+  /* Hero Section - переработанная версия для планшетов */
+  .hero {
+    padding-top: 60px;
+    padding-bottom: var(--space-xl);
+    min-height: auto;
+    height: auto;
+    overflow: visible;
+  }
+
+  .hero .container {
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+  }
+  /* Отступы контейнера только для секции тарифов */
+  #tariffs .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .hero__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    min-height: auto;
+    padding: 0;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero__content {
+    text-align: center;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .hero__badge {
+    font-size: 12px;
+    padding: var(--space-xs) var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero__title {
+    font-size: 36px;
+    line-height: 1.2;
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero__subtitle {
+    margin: 0 auto var(--space-md);
+    max-width: 100%;
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    padding: 0 var(--space-md);
+  }
+
+  .hero__cta {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+  }
+
+  .hero__cta .btn {
+    flex: 0 1 auto;
+    min-width: 200px;
+    padding: var(--space-md) var(--space-lg);
+    font-size: var(--font-size-base);
+  }
+
+  /* Изображение - на всю ширину с отступами */
+  .hero__image {
+    height: auto !important;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto var(--space-lg);
+    order: -1;
+    padding: 0 var(--space-md);
+  }
+
+  .hero__image-wrapper {
+    height: auto;
+    max-height: none;
+    aspect-ratio: 16 / 10;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: var(--radius-lg);
+  }
+
+  .hero__image-wrapper::before {
+    display: none;
+  }
+
+  .hero__image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    min-height: auto;
+  }
+
+  /* Features - компактная версия */
+  .hero__features {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+    max-width: 100%;
+    margin: var(--space-lg) auto 0;
+    padding: 0;
+  }
+
+  .hero__feature {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    padding: var(--space-sm);
+    gap: var(--space-sm);
+    font-size: 13px;
+    line-height: 1.5;
+    min-height: auto;
+  }
+
+  .hero__feature-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+
+  .hero__feature-icon svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Grids - 2 columns for tablets */
+  .services__grid,
+  .why-us__grid,
+  .reviews__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  /* Tariffs - слайдер для планшетов */
+  .tariffs__grid {
+    display: flex;
+    gap: var(--space-lg);
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .tariffs__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tariff-card {
+    flex: 0 0 calc((100% - var(--space-lg) * 1) / 2.3);
+    max-width: calc((100% - var(--space-lg) * 1) / 2.3);
+    min-width: 0;
+  }
+
+  /* Секция "Решаем ваши страхи" */
+  #pains .container {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  .pains__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pain-card {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    margin: 0!important;
+  }
+
+  .pain-card__header {
+    width: 100%;
+    margin: 0;
+    padding: var(--space-lg);
+  }
+
+  .pain-card__body {
+    width: 100%;
+    margin: 0;
+    padding: var(--space-lg);
+  }
+
+  /* Layout sections - single column */
+  .gifts__inner,
+  .about__inner,
+  .contact__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  /* Меняем порядок: форма первая, контакты вторые */
+  .contact__content {
+    order: 2;
+  }
+
+  #contactForm {
+    order: 1;
+  }
+
+  .about__image {
+    order: -1;
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .about__image-wrapper {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .about__image img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: center 5%;
+  }
+
+  .review-card {
+    margin: 0!important;
+  }
+
+  .gifts__image {
+    order: -1;
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .gifts__image-wrapper {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .gifts__image img {
+    max-width: 100%;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: center 15%;
+  }
+
+  /* Stages timeline */
+  .stages__timeline {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+  .stagger--visible > *:nth-child(1) {
+    margin-left: 20px;
+  }
+  .stagger--visible > *:nth-child(3) {
+    margin-right: 20px;
+  }
+  /* Portfolio grid - адаптация для планшетов */
+  .portfolio__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  /* FAQ - 2 columns */
+  .faq__list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .faq__list .faq-item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: 50%;
+    margin: 0 auto;
+  }
+
+  /* Form adjustments */
+  .form__row {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+
+  /* About highlights */
+  .about__highlights {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  /* Header adjustments - бургер-меню для планшетов */
+  .header__logo-text {
+    font-size: 22px;
+  }
+
+  .nav__list {
+    display: none;
+  }
+
+  .nav__cta {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  /* Mobile menu для планшетов */
+  .mobile-menu {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-bg-dark);
+    z-index: 2000;
+    padding: var(--space-xxl) var(--space-lg);
+    transform: translateX(100%);
+    transition: transform var(--transition-base);
+    overflow-y: auto;
+  }
+
+  .mobile-menu--open {
+    transform: translateX(0);
+  }
+
+  .mobile-menu__close {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-on-dark);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .mobile-menu__close svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    fill: none;
+  }
+
+  .mobile-menu__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    margin-top: var(--space-xxl);
+  }
+
+  .mobile-menu__link {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-on-dark);
+    font-family: var(--font-heading);
+    display: block;
+    padding: var(--space-sm) 0;
+    transition: opacity var(--transition-fast);
+  }
+  
+  .mobile-menu__link:hover {
+    opacity: 0.7;
+  }
+
+  .mobile-menu__cta {
+    margin-top: var(--space-xl);
+  }
+
+  /* Footer */
+  .footer__inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-md);
+    min-height: auto;
+  }
+
+  .footer__inner > * {
+    justify-content: center;
+  }
+
+  /* Float contact button - немного меньше */
+  .float-contact {
+    bottom: var(--space-md);
+    right: var(--space-md);
+  }
+
+  .float-contact__btn {
+    width: 52px;
+    height: 52px;
+  }
+
+  .float-contact__item {
+    width: 52px;
+    height: 52px;
+  }
+
+  /* Lightbox adjustments */
+  .lightbox__nav {
+    width: 52px;
+    height: 52px;
+  }
+
+  .lightbox__close {
+    width: 44px;
+    height: 44px;
+  }
+}

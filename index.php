@@ -14,6 +14,59 @@
   <!-- Styles -->
   <link rel="stylesheet" href="css/style.css">
   
+  <!-- Device Detection & Dynamic Loading -->
+  <script>
+    (function() {
+      function detectDevice() {
+        const width = window.innerWidth;
+        if (width >= 768 && width <= 1199) {
+          return 'tablet';
+        }
+        return 'desktop'; // desktop или mobile (mobile обрабатывается в основном CSS)
+      }
+
+      function loadTabletAssets() {
+        // Загружаем CSS для планшетов
+        const tabletCSS = document.createElement('link');
+        tabletCSS.rel = 'stylesheet';
+        tabletCSS.href = 'css/tablet.css';
+        document.head.appendChild(tabletCSS);
+
+        // Загружаем JS для планшетов после загрузки основного JS
+        window.addEventListener('load', function() {
+          const tabletJS = document.createElement('script');
+          tabletJS.src = 'js/tablet.js';
+          tabletJS.defer = true;
+          document.body.appendChild(tabletJS);
+        });
+      }
+
+      // Определяем устройство и загружаем нужные файлы
+      if (detectDevice() === 'tablet') {
+        loadTabletAssets();
+      }
+
+      // Перезагрузка при изменении размера окна
+      let resizeTimer;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+          const currentDevice = detectDevice();
+          const hasTabletCSS = document.querySelector('link[href="css/tablet.css"]');
+          const hasTabletJS = document.querySelector('script[src="js/tablet.js"]');
+          
+          if (currentDevice === 'tablet' && !hasTabletCSS) {
+            loadTabletAssets();
+          } else if (currentDevice !== 'tablet' && (hasTabletCSS || hasTabletJS)) {
+            // Удаляем планшетные файлы, если перешли на другое устройство
+            if (hasTabletCSS) hasTabletCSS.remove();
+            if (hasTabletJS) hasTabletJS.remove();
+          }
+        }, 300);
+      });
+    })();
+  </script>
+  
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="img/logo.PNG">
 </head>
