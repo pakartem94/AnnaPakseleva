@@ -15,14 +15,38 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Configuration
+require_once __DIR__ . '/../admin/config.php';
+
+// Базовая защита от спама (rate limiting через файл)
+$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+$rateLimitFile = __DIR__ . '/../logs/rate_limit_' . md5($ip) . '.tmp';
+$rateLimitTime = 60; // 60 секунд
+$maxRequests = 5; // максимум 5 запросов в минуту
+
+// Проверка rate limit
+if (file_exists($rateLimitFile)) {
+    $data = json_decode(file_get_contents($rateLimitFile), true);
+    if ($data && (time() - $data['time']) < $rateLimitTime) {
+        if ($data['count'] >= $maxRequests) {
+            http_response_code(429);
+            echo json_encode(['success' => false, 'error' => 'Слишком много запросов. Попробуйте позже.'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+        $data['count']++;
+    } else {
+        $data = ['count' => 1, 'time' => time()];
+    }
+} else {
+    $data = ['count' => 1, 'time' => time()];
+}
+
+// Сохраняем данные rate limit
+@file_put_contents($rateLimitFile, json_encode($data), LOCK_EX);
+
 $config = [
     'email_to' => 'ann-ki@mail.ru',
     'email_from' => 'no-reply@studioap.ru',
     'email_name' => 'Сайт студии Анны Пакселевой',
-    'db_host' => 'localhost',
-    'db_name' => 'pakart06_studio',
-    'db_user' => 'pakart06_studio',
-    'db_pass' => 'IRYtg!RMph4V',
 ];
 
 // Honeypot check
@@ -59,6 +83,13 @@ $data = [
 if (empty($data['name']) || empty($data['phone'])) {
     http_response_code(400);
     echo json_encode(['success' => false, 'error' => 'Заполните обязательные поля'], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+// Validate privacy agreement
+if (empty($_POST['privacy_agree'])) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'error' => 'Необходимо согласие с политикой конфиденциальности'], JSON_UNESCAPED_UNICODE);
     exit;
 }
 
@@ -211,15 +242,7 @@ $email_sent = mail(
 
 // Save to database
 try {
-    $pdo = new PDO(
-        "mysql:host={$config['db_host']};dbname={$config['db_name']};charset=utf8mb4",
-        $config['db_user'],
-        $config['db_pass'],
-        [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        ]
-    );
+    $pdo = getDB();
 
     $sql = "INSERT INTO leads (
         created_at, name, phone, messenger, type, tariff, 
@@ -250,7 +273,9 @@ try {
         'user_agent' => $data['user_agent'],
     ]);
 } catch (PDOException $e) {
-    error_log('Database error: ' . $e->getMessage());
+    // Логируем ошибку, но не раскрываем детали пользователю
+    error_log('Database error in send.php: ' . $e->getMessage());
+    // Продолжаем выполнение - email уже отправлен
 }
 
 // Save to file as backup
@@ -258,11 +283,16 @@ $log_file = __DIR__ . '/../logs/leads.log';
 $log_dir = dirname($log_file);
 
 if (!is_dir($log_dir)) {
-    mkdir($log_dir, 0755, true);
+    @mkdir($log_dir, 0750, true);
+}
+
+// Устанавливаем безопасные права на файл лога
+if (file_exists($log_file)) {
+    @chmod($log_file, 0640);
 }
 
 $log_entry = date('Y-m-d H:i:s') . ' | ' . json_encode($data, JSON_UNESCAPED_UNICODE) . PHP_EOL;
-file_put_contents($log_file, $log_entry, FILE_APPEND | LOCK_EX);
+@file_put_contents($log_file, $log_entry, FILE_APPEND | LOCK_EX);
 
 // Response
 echo json_encode([

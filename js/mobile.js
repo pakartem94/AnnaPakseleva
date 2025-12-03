@@ -90,55 +90,40 @@
             // Получаем данные проекта
             const portfolioData = window.portfolioData || {};
             const data = portfolioData[project];
-            if (!data) return;
+            if (!data || !data.images) return;
             
-            const files = data.files;
-            if (files.length === 0) return;
+            const images = data.images || [];
+            if (images.length === 0) return;
             
             // Получаем текущее состояние
-            let currentLoaded = 0;
-            let currentImages = [];
+            let currentLoaded = data.loaded || 0;
             
             if (!append) {
               portfolioGrid.innerHTML = '';
               data.loaded = 0;
-              data.images = [];
+              currentLoaded = 0;
               portfolioGrid.classList.remove('stagger--visible');
-            } else {
-              // Используем data.loaded из объекта данных, а не количество элементов в DOM
-              currentLoaded = data.loaded || 0;
-              const existingItems = portfolioGrid.querySelectorAll('.portfolio__item');
-              currentImages = Array.from(existingItems).map((item) => {
-                const img = item.querySelector('img');
-                const src = img?.src || '';
-                const match = src.match(/\/(\d+)\.webp$/);
-                return {
-                  path: src,
-                  num: match ? parseInt(match[1]) : 0
-                };
-              });
             }
             
             // Загружаем ровно 6 элементов каждый раз
             const elementsToLoad = 6;
             const startIndex = currentLoaded;
-            const endIndex = Math.min(startIndex + elementsToLoad, files.length);
+            const endIndex = Math.min(startIndex + elementsToLoad, images.length);
             
-            // Загружаем ровно 6 элементов (или меньше, если файлов не хватает)
+            // Загружаем ровно 6 элементов (или меньше, если изображений не хватает)
             let loadedCount = 0;
             for (let i = startIndex; i < endIndex; i++) {
               // Проверяем, что индекс не выходит за пределы массива
-              if (i >= files.length) break;
+              if (i >= images.length) break;
               
-              const fileNum = files[i];
-              if (!fileNum) {
-                console.warn('Пропущен файл с индексом:', i);
+              const image = images[i];
+              if (!image) {
+                console.warn('Пропущено изображение с индексом:', i);
                 continue;
               }
               
-              const path = `img/portfolio/${project}/${fileNum}.webp`;
-              const imageIndex = currentImages.length;
-              currentImages.push({ path, num: fileNum });
+              const path = image.url || image.path;
+              const imageIndex = i;
               
               const item = document.createElement('div');
               item.className = 'portfolio__item';
@@ -151,7 +136,7 @@
               
               const img = document.createElement('img');
               img.src = path;
-              img.alt = `Дизайн интерьера проект ${project} от студии Анны Пакселевой в Калининграде — фото ${fileNum} реализованного интерьера`;
+              img.alt = `Дизайн интерьера ${data.name} от студии Анны Пакселевой в Калининграде — фото ${i + 1} реализованного интерьера`;
               img.loading = 'lazy';
               
               // Обработка ошибки загрузки изображения
@@ -176,9 +161,6 @@
             // Обновляем счетчик загруженных элементов
             data.loaded = startIndex + loadedCount;
             
-            // Сохраняем состояние
-            data.images = currentImages;
-            
             // Проверяем, что все элементы добавлены
             const actualItems = portfolioGrid.querySelectorAll('.portfolio__item');
             if (actualItems.length !== data.loaded) {
@@ -188,7 +170,7 @@
             // Toggle load more button
             const loadMoreBtn = document.getElementById('loadMorePortfolio');
             if (loadMoreBtn) {
-              if (data.loaded >= files.length) {
+              if (data.loaded >= images.length) {
                 loadMoreBtn.style.display = 'none';
               } else {
                 loadMoreBtn.style.display = 'block';

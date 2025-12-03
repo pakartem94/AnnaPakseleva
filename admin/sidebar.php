@@ -20,6 +20,10 @@
             <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
             Заявки
         </a>
+        <a href="change-password.php" class="admin-sidebar__link <?= basename($_SERVER['PHP_SELF']) === 'change-password.php' ? 'admin-sidebar__link--active' : '' ?>">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Смена пароля
+        </a>
     </nav>
     <div class="admin-sidebar__footer">
         <a href="logout.php" class="admin-sidebar__link">

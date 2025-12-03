@@ -6,24 +6,10 @@
 
 header('Content-Type: application/json; charset=UTF-8');
 
-// Database configuration
-$config = [
-    'db_host' => 'localhost',
-    'db_name' => 'pakart06_studio',
-    'db_user' => 'pakart06_studio',
-    'db_pass' => 'IRYtg!RMph4V',
-];
+require_once __DIR__ . '/../admin/config.php';
 
 try {
-    $pdo = new PDO(
-        "mysql:host={$config['db_host']};dbname={$config['db_name']};charset=utf8mb4",
-        $config['db_user'],
-        $config['db_pass'],
-        [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        ]
-    );
+    $pdo = getDB();
     
     $reviews = $pdo->query("
         SELECT * FROM reviews 
@@ -33,7 +19,9 @@ try {
     
     echo json_encode($reviews, JSON_UNESCAPED_UNICODE);
 } catch (PDOException $e) {
+    // Логируем ошибку, но не раскрываем детали пользователю
+    error_log('Database error in reviews.php: ' . $e->getMessage());
     http_response_code(500);
-    echo json_encode(['error' => 'Database error'], JSON_UNESCAPED_UNICODE);
+    echo json_encode(['error' => 'Ошибка загрузки данных'], JSON_UNESCAPED_UNICODE);
 }
 

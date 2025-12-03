@@ -137,7 +137,7 @@ $stats = [
     </div>
     
     <!-- Lead Modal -->
-    <div id="leadModal" class="modal" style="display: none;">
+    <div id="leadModal" class="modal modal--hidden">
         <div class="modal__overlay" onclick="closeLeadModal()"></div>
         <div class="modal__content" style="max-width: 800px;">
             <button class="modal__close" onclick="closeLeadModal()">×</button>
@@ -152,12 +152,19 @@ $stats = [
     
     <script src="admin.js"></script>
     <script>
-        async function openLeadModal(id) {
+        window.openLeadModal = async function(id) {
             const modal = document.getElementById('leadModal');
             const content = document.getElementById('leadContent');
             
+            if (!modal || !content) {
+                return;
+            }
+            
             try {
                 const response = await fetch(`api/leads.php?id=${id}`);
+                if (!response.ok) {
+                    throw new Error('Ошибка загрузки заявки');
+                }
                 const lead = await response.json();
                 
                 const statusLabels = {
@@ -180,37 +187,37 @@ $stats = [
                         
                         <div class="admin-form__group">
                             <label class="admin-form__label">Имя</label>
-                            <div>${lead.name}</div>
+                            <div>${escapeHtml(lead.name || '')}</div>
                         </div>
                         
                         <div class="admin-form__group">
                             <label class="admin-form__label">Телефон</label>
-                            <div><a href="tel:${lead.phone}">${lead.phone}</a></div>
+                            <div><a href="tel:${escapeHtml(lead.phone || '')}">${escapeHtml(lead.phone || '')}</a></div>
                         </div>
                         
                         <div class="admin-form__group">
                             <label class="admin-form__label">Тип заявки</label>
-                            <div>${lead.type}</div>
+                            <div>${escapeHtml(lead.type || '')}</div>
                         </div>
                         
                         ${lead.tariff ? `<div class="admin-form__group">
                             <label class="admin-form__label">Тариф</label>
-                            <div>${lead.tariff}</div>
+                            <div>${escapeHtml(lead.tariff)}</div>
                         </div>` : ''}
                         
                         ${lead.object_type ? `<div class="admin-form__group">
                             <label class="admin-form__label">Тип объекта</label>
-                            <div>${lead.object_type}</div>
+                            <div>${escapeHtml(lead.object_type)}</div>
                         </div>` : ''}
                         
                         ${lead.area ? `<div class="admin-form__group">
                             <label class="admin-form__label">Площадь</label>
-                            <div>${lead.area} м²</div>
+                            <div>${escapeHtml(lead.area)} м²</div>
                         </div>` : ''}
                         
                         ${lead.comment ? `<div class="admin-form__group">
                             <label class="admin-form__label">Комментарий</label>
-                            <div>${lead.comment}</div>
+                            <div>${escapeHtml(lead.comment)}</div>
                         </div>` : ''}
                         
                         <div class="admin-form__group">
@@ -226,7 +233,7 @@ $stats = [
                         
                         <div class="admin-form__group">
                             <label class="admin-form__label" for="leadNotes">Заметки</label>
-                            <textarea class="admin-form__textarea" id="leadNotes" name="notes" rows="4">${lead.notes || ''}</textarea>
+                            <textarea class="admin-form__textarea" id="leadNotes" name="notes" rows="4">${escapeHtml(lead.notes || '')}</textarea>
                         </div>
                         
                         <div class="admin-form__actions">
@@ -237,15 +244,42 @@ $stats = [
                     </form>
                 `;
                 
+                modal.classList.remove('modal--hidden');
                 modal.style.display = 'flex';
+                modal.style.visibility = 'visible';
+                modal.style.opacity = '1';
             } catch (error) {
                 alert('Ошибка загрузки: ' + error.message);
             }
+        };
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
         
-        function closeLeadModal() {
-            document.getElementById('leadModal').style.display = 'none';
-        }
+        window.closeLeadModal = function() {
+            const modal = document.getElementById('leadModal');
+            if (modal) {
+                modal.classList.add('modal--hidden');
+                modal.style.display = 'none';
+                modal.style.visibility = 'hidden';
+            }
+        };
+        
+        window.deleteLead = function(id) {
+            if (confirm('Удалить заявку?')) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.innerHTML = `
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="id" value="${id}">
+                `;
+                document.body.appendChild(form);
+                form.submit();
+            }
+        };
         
         function deleteLead(id) {
             if (confirm('Удалить заявку?')) {
@@ -269,6 +303,12 @@ $stats = [
             align-items: center;
             justify-content: center;
             background: rgba(0, 0, 0, 0.5);
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal--hidden {
+            display: none;
+            visibility: hidden;
         }
         .modal__content {
             background: var(--color-bg-card);

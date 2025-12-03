@@ -488,19 +488,30 @@
     color: var(--color-text-muted);
   }
 
+  .portfolio__tabs-wrapper {
+    margin-bottom: var(--space-xl);
+  }
+
   .portfolio__tabs {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     gap: var(--space-sm);
-    margin-bottom: var(--space-xl);
-    flex-wrap: wrap;
-    padding: 0;
+    flex-wrap: nowrap;
+    padding: var(--space-xs) 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .portfolio__tabs::-webkit-scrollbar {
+    display: none;
   }
 
   .portfolio__tab {
-    flex: 1;
-    min-width: calc(33.333% - var(--space-sm));
-    max-width: calc(33.333% - var(--space-sm));
+    flex: 0 0 auto;
+    min-width: auto;
+    max-width: none;
     font-size: var(--font-size-sm);
     padding: var(--space-sm) var(--space-md);
     border-radius: var(--radius-md);
@@ -510,8 +521,6 @@
     transition: all var(--transition-fast);
     text-align: center;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .portfolio__tab:active {

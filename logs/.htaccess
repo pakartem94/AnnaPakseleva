@@ -1,4 +1,3 @@
-# Полный запрет доступа к папке logs
+# Запрет доступа к логам
 Order Allow,Deny
 Deny from all
-

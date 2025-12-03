@@ -8,8 +8,19 @@ Options -Indexes
 </FilesMatch>
 
 # Запрет доступа к другим файлам
-<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|md)$">
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|md|txt)$">
     Order Allow,Deny
     Deny from all
 </FilesMatch>
 
+# Базовый rate limiting через заголовки
+<IfModule mod_headers.c>
+    # Ограничение запросов (можно настроить на уровне сервера)
+    Header set X-RateLimit-Limit "100"
+</IfModule>
+
+# Защита от прямого доступа к конфигурационным файлам
+<FilesMatch "^(config|\.env)">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>

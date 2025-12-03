@@ -49,6 +49,7 @@
   --radius-md: 12px;
   --radius-lg: 20px;
   --radius-xl: 32px;
+  --radius-full: 50%;
 
   /* Отступы */
   --space-xs: 4px;
@@ -990,12 +991,24 @@ p:last-child {
   background-color: var(--color-bg-alt);
 }
 
+.portfolio__tabs-wrapper {
+  margin-bottom: var(--space-xl);
+}
+
 .portfolio__tabs {
   display: flex;
   justify-content: center;
   gap: var(--space-md);
-  margin-bottom: var(--space-xl);
   flex-wrap: wrap;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: var(--space-xs) 0;
+}
+
+.portfolio__tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .portfolio__tab {
@@ -1868,6 +1881,39 @@ p:last-child {
 .form__honeypot {
   position: absolute;
   left: -9999px;
+}
+
+/* Checkbox */
+.form__checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.form__checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+}
+
+.form__checkbox span {
+  color: var(--color-text);
+}
+
+.form__checkbox a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+.form__checkbox a:hover {
+  color: var(--color-primary-soft);
 }
 
 /* ===========================================

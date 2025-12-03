@@ -114,7 +114,9 @@ try {
             echo json_encode(['error' => 'Method not allowed'], JSON_UNESCAPED_UNICODE);
     }
 } catch (Exception $e) {
+    // Логируем ошибку, но не раскрываем детали пользователю
+    error_log('Error in reviews API: ' . $e->getMessage());
     http_response_code(500);
-    echo json_encode(['error' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+    echo json_encode(['error' => 'Произошла ошибка при обработке запроса'], JSON_UNESCAPED_UNICODE);
 }
 

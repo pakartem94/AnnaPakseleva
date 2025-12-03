@@ -3,10 +3,20 @@
  * Admin Panel Configuration
  */
 
-session_start();
+// Настройка сессии с безопасными параметрами
+if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.cookie_httponly', 1);
+    ini_set('session.cookie_secure', 0); // Установить в 1 при использовании HTTPS
+    ini_set('session.use_strict_mode', 1);
+    session_start();
+}
 
 // Запрет индексации админ-панели
 header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet');
+// Защита от XSS
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: SAMEORIGIN');
+header('X-XSS-Protection: 1; mode=block');
 
 // Database configuration
 define('DB_HOST', 'localhost');
@@ -29,7 +39,9 @@ function getDB() {
                 ]
             );
         } catch (PDOException $e) {
-            die('Database connection failed: ' . $e->getMessage());
+            // В продакшене не раскрываем детали ошибки
+            error_log('Database connection failed: ' . $e->getMessage());
+            die('Database connection failed. Please contact administrator.');
         }
     }
     return $pdo;

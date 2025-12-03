@@ -31,19 +31,10 @@
   // ===========================================
   // Portfolio Data
   // ===========================================
-  // Реальные номера файлов в каждой папке (без пропусков)
-  const portfolioFiles = {
-    1: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,36,37,38,39,40,41,42,43,44,45],
-    2: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74],
-    3: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45]
-  };
-  const portfolioData = {
-    1: { files: portfolioFiles[1], loaded: 0, images: [] },
-    2: { files: portfolioFiles[2], loaded: 0, images: [] },
-    3: { files: portfolioFiles[3], loaded: 0, images: [] }
-  };
-  let currentProject = '1';
+  window.portfolioData = {};
+  let currentProject = null;
   let currentLightboxIndex = 0;
+  let portfolioProjects = [];
 
   // ===========================================
   // Header Scroll Effect
@@ -75,9 +66,33 @@
   burger.addEventListener('click', openMobileMenu);
   mobileMenuClose.addEventListener('click', closeMobileMenu);
 
-  // Close mobile menu on link click (handled in smooth scroll)
-  // Also close on overlay click
+  // Handle mobile menu links explicitly
+  const mobileMenuLinks = mobileMenu.querySelectorAll('.mobile-menu__link');
+  mobileMenuLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent overlay handler from firing
+      const href = this.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        closeMobileMenu();
+        const target = document.querySelector(href);
+        if (target) {
+          const headerHeight = header.offsetHeight;
+          const targetPosition = Math.max(0, target.offsetTop - headerHeight);
+          setTimeout(() => {
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }, 300);
+        }
+      }
+    }, true); // Use capture phase to handle before other handlers
+  });
+
+  // Close on overlay click (but not on links or buttons inside)
   mobileMenu.addEventListener('click', (e) => {
+    // Close only if click is directly on the menu container (overlay), not on child elements
     if (e.target === mobileMenu) {
       closeMobileMenu();
     }
@@ -416,8 +431,124 @@
   // ===========================================
   // Portfolio
   // ===========================================
-  function generateImagePath(project, num) {
-    return `img/portfolio/${project}/${num}.webp`;
+  
+  // Загрузка портфолио из API
+  async function loadPortfolioFromAPI() {
+    try {
+      const response = await fetch('api/portfolio.php');
+      if (!response.ok) {
+        throw new Error('Ошибка загрузки портфолио');
+      }
+      portfolioProjects = await response.json();
+      
+      // Инициализируем portfolioData
+      portfolioProjects.forEach(project => {
+        window.portfolioData[project.id] = {
+          id: project.id,
+          name: project.name,
+          images: project.images,
+          loaded: 0
+        };
+      });
+      
+      // Создаём табы динамически
+      createPortfolioTabs();
+      
+      // Загружаем первый проект
+      if (portfolioProjects.length > 0) {
+        currentProject = String(portfolioProjects[0].id);
+        loadPortfolioImages(currentProject, 2, false);
+      }
+    } catch (error) {
+      console.error('Ошибка загрузки портфолио:', error);
+      // Fallback на статическое портфолио, если API недоступно
+      initFallbackPortfolio();
+    }
+  }
+  
+  function scrollTabIntoView(tab) {
+    const tabsContainer = document.querySelector('.portfolio__tabs');
+    if (!tabsContainer || !tab) return;
+    
+    const containerRect = tabsContainer.getBoundingClientRect();
+    const tabRect = tab.getBoundingClientRect();
+    const scrollLeft = tabsContainer.scrollLeft;
+    
+    if (tabRect.left < containerRect.left) {
+      tabsContainer.scrollTo({
+        left: scrollLeft + (tabRect.left - containerRect.left) - 16,
+        behavior: 'smooth'
+      });
+    } else if (tabRect.right > containerRect.right) {
+      tabsContainer.scrollTo({
+        left: scrollLeft + (tabRect.right - containerRect.right) + 16,
+        behavior: 'smooth'
+      });
+    }
+  }
+  
+  function createPortfolioTabs() {
+    const tabsContainer = document.querySelector('.portfolio__tabs');
+    if (!tabsContainer || portfolioProjects.length === 0) return;
+    
+    tabsContainer.innerHTML = '';
+    
+    portfolioProjects.forEach((project, index) => {
+      const tab = document.createElement('button');
+      tab.className = 'portfolio__tab';
+      if (index === 0) {
+        tab.classList.add('portfolio__tab--active');
+      }
+      tab.textContent = project.name;
+      tab.dataset.project = project.id;
+      
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.portfolio__tab').forEach(t => t.classList.remove('portfolio__tab--active'));
+        tab.classList.add('portfolio__tab--active');
+        currentProject = String(project.id);
+        loadPortfolioImages(currentProject, 2, false);
+        scrollTabIntoView(tab);
+      });
+      
+      tabsContainer.appendChild(tab);
+    });
+    
+    initPortfolioTabsSlider();
+  }
+  
+  function initPortfolioTabsSlider() {
+    const tabsContainer = document.querySelector('.portfolio__tabs');
+    if (!tabsContainer) return;
+    
+    // Прокручиваем активный таб в видимую область при загрузке
+    const activeTab = tabsContainer.querySelector('.portfolio__tab--active');
+    if (activeTab) {
+      setTimeout(() => scrollTabIntoView(activeTab), 100);
+    }
+  }
+  
+  function initFallbackPortfolio() {
+    // Fallback на старые данные, если API недоступно
+    const portfolioFiles = {
+      1: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,36,37,38,39,40,41,42,43,44,45],
+      2: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74],
+      3: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45]
+    };
+    
+    Object.keys(portfolioFiles).forEach(id => {
+      window.portfolioData[id] = {
+        id: parseInt(id),
+        name: `Проект ${id}`,
+        images: portfolioFiles[id].map(num => ({
+          url: `img/portfolio/${id}/${num}.webp`,
+          filename: `${num}.webp`
+        })),
+        loaded: 0
+      };
+    });
+    
+    currentProject = '1';
+    loadPortfolioImages(currentProject, 2, false);
   }
 
   // Паттерны блоков для сетки 6 колонок
@@ -471,18 +602,17 @@
   }
 
   function loadPortfolioImages(project, patternsToLoad = 2, append = false) {
-    const data = portfolioData[project];
+    const data = window.portfolioData[project];
     if (!data || !portfolioGrid) return;
 
     if (!append) {
       portfolioGrid.innerHTML = '';
       data.loaded = 0;
-      data.images = [];
       currentPatternIndex = 0;
       portfolioGrid.classList.remove('stagger--visible');
     }
 
-    const files = data.files;
+    const images = data.images || [];
     let imagesAdded = 0;
     
     // Загружаем указанное количество паттернов
@@ -490,12 +620,11 @@
       const pattern = getNextPattern();
       
       for (let i = 0; i < pattern.length; i++) {
-        if (data.loaded >= files.length) break;
+        if (data.loaded >= images.length) break;
         
-        const fileNum = files[data.loaded];
-        const path = generateImagePath(project, fileNum);
-        const imageIndex = data.images.length;
-        data.images.push({ path, num: fileNum });
+        const image = images[data.loaded];
+        const path = image.url || image.path;
+        const imageIndex = data.loaded;
         
         const item = document.createElement('div');
         item.className = 'portfolio__item';
@@ -509,7 +638,7 @@
         
         const img = document.createElement('img');
         img.src = path;
-        img.alt = `Дизайн интерьера проект ${project} от студии Анны Пакселевой в Калининграде — фото ${fileNum} реализованного интерьера`;
+        img.alt = `Дизайн интерьера ${data.name} от студии Анны Пакселевой в Калининграде — фото ${imageIndex + 1} реализованного интерьера`;
         img.loading = 'lazy';
         
         item.appendChild(img);
@@ -523,7 +652,7 @@
 
     // Toggle load more button
     if (loadMoreBtn) {
-      if (data.loaded >= files.length) {
+      if (data.loaded >= images.length) {
         loadMoreBtn.style.display = 'none';
       } else {
         loadMoreBtn.style.display = 'block';
@@ -538,26 +667,19 @@
     }
   }
 
-  // Portfolio tabs
-  document.querySelectorAll('.portfolio__tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.portfolio__tab').forEach(t => t.classList.remove('portfolio__tab--active'));
-      tab.classList.add('portfolio__tab--active');
-      
-      currentProject = tab.dataset.project;
-      loadPortfolioImages(currentProject, 2, false); // Загружаем 2 паттерна
-    });
-  });
-
   // Load more
   if (loadMoreBtn) {
     loadMoreBtn.addEventListener('click', () => {
-      loadPortfolioImages(currentProject, 2, true); // Добавляем 2 паттерна
+      if (currentProject) {
+        loadPortfolioImages(currentProject, 2, true); // Добавляем 2 паттерна
+      }
     });
   }
 
-  // Initial load
-  loadPortfolioImages('1', 2);
+  // Initial load - загружаем из API
+  if (portfolioGrid) {
+    loadPortfolioFromAPI();
+  }
 
   // ===========================================
   // Lightbox
@@ -575,24 +697,28 @@
   }
 
   function updateLightboxImage() {
-    const data = portfolioData[currentProject];
-    if (!data.images || !data.images[currentLightboxIndex]) return;
+    if (!currentProject) return;
+    const data = window.portfolioData[currentProject];
+    if (!data || !data.images || !data.images[currentLightboxIndex]) return;
     
     const image = data.images[currentLightboxIndex];
-    lightboxImage.src = image.path;
-    lightboxImage.alt = `Дизайн интерьера проект ${currentProject} от студии Анны Пакселевой в Калининграде — фото ${image.num} реализованного интерьера`;
+    const path = image.url || image.path;
+    lightboxImage.src = path;
+    lightboxImage.alt = `Дизайн интерьера ${data.name} от студии Анны Пакселевой в Калининграде — фото ${currentLightboxIndex + 1} реализованного интерьера`;
   }
 
   function nextImage() {
-    const data = portfolioData[currentProject];
-    if (!data.images || data.images.length === 0) return;
+    if (!currentProject) return;
+    const data = window.portfolioData[currentProject];
+    if (!data || !data.images || data.images.length === 0) return;
     currentLightboxIndex = (currentLightboxIndex + 1) % data.images.length;
     updateLightboxImage();
   }
 
   function prevImage() {
-    const data = portfolioData[currentProject];
-    if (!data.images || data.images.length === 0) return;
+    if (!currentProject) return;
+    const data = window.portfolioData[currentProject];
+    if (!data || !data.images || data.images.length === 0) return;
     currentLightboxIndex = (currentLightboxIndex - 1 + data.images.length) % data.images.length;
     updateLightboxImage();
   }
@@ -644,7 +770,7 @@
   // ===========================================
   // Smooth Scroll
   // ===========================================
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  document.querySelectorAll('a[href^="#"]:not(.mobile-menu__link)').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const href = this.getAttribute('href');
       
@@ -658,7 +784,7 @@
         return;
       }
       
-      if (!href) return;
+      if (!href || href === '#!') return;
       
       e.preventDefault();
       const target = document.querySelector(href);
@@ -679,6 +805,11 @@
             behavior: 'smooth'
           });
         }, menuWasOpen ? 300 : 0);
+      } else {
+        // If target not found, just close menu and allow default behavior
+        if (mobileMenu.classList.contains('mobile-menu--open')) {
+          closeMobileMenu();
+        }
       }
     });
   });
