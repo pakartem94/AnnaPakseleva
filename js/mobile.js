@@ -151,7 +151,7 @@
               
               const img = document.createElement('img');
               img.src = path;
-              img.alt = `Дизайн интерьера - проект ${project}, изображение ${fileNum}`;
+              img.alt = `Дизайн интерьера проект ${project} от студии Анны Пакселевой в Калининграде — фото ${fileNum} реализованного интерьера`;
               img.loading = 'lazy';
               
               // Обработка ошибки загрузки изображения

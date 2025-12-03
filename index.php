@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" itemscope itemtype="https://schema.org/LocalBusiness">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Студия дизайна интерьеров Анны Пакселевой в Калининграде. Создаём продуманные, эстетичные и функциональные интерьеры с инженерной точностью и сопровождением ремонта.">
+  
+  <!-- Primary Meta Tags -->
   <title>Дизайн интерьера в Калининграде — Студия Анны Пакселевой</title>
+  <meta name="title" content="Дизайн интерьера в Калининграде — Студия Анны Пакселевой">
+  <meta name="description" content="Студия дизайна интерьеров Анны Пакселевой в Калининграде. Создаём продуманные, эстетичные и функциональные интерьеры с инженерной точностью и сопровождением ремонта. 15 проектов в год. Тарифы от 3000₽/м².">
+  <meta name="keywords" content="дизайн интерьера Калининград, дизайнер интерьеров Калининград, дизайн квартиры Калининград, дизайн дома Калининград, ремонт под ключ Калининград, 3D визуализация интерьера, дизайн-проект интерьера, Анна Пакселева">
+  <meta name="author" content="Анна Пакселева">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="language" content="Russian">
+  <meta name="geo.region" content="RU-KGD">
+  <meta name="geo.placename" content="Калининград">
+  <meta name="geo.position" content="54.7104;20.4522">
+  <meta name="ICBM" content="54.7104, 20.4522">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://annapakseleva.ru/">
+  
+  <!-- Sitemap -->
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://annapakseleva.ru/">
+  <meta property="og:title" content="Дизайн интерьера в Калининграде — Студия Анны Пакселевой">
+  <meta property="og:description" content="Создаём продуманные, эстетичные и функциональные интерьеры с инженерной точностью и сопровождением ремонта. 15 проектов в год. Тарифы от 3000₽/м².">
+  <meta property="og:image" content="https://annapakseleva.ru/img/photo_2025-12-02%2016.15.13.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Дизайн интерьера от студии Анны Пакселевой">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Студия дизайна интерьеров Анны Пакселевой">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://annapakseleva.ru/">
+  <meta name="twitter:title" content="Дизайн интерьера в Калининграде — Студия Анны Пакселевой">
+  <meta name="twitter:description" content="Создаём продуманные, эстетичные и функциональные интерьеры с инженерной точностью и сопровождением ремонта.">
+  <meta name="twitter:image" content="https://annapakseleva.ru/img/photo_2025-12-02%2016.15.13.webp">
+  <meta name="twitter:image:alt" content="Дизайн интерьера от студии Анны Пакселевой">
+  
+  <!-- Additional Meta Tags -->
+  <meta name="theme-color" content="#5A1D33">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Анна Пакселева">
+  <meta name="format-detection" content="telephone=yes">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -121,6 +165,197 @@
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="img/logo.PNG">
+  <link rel="apple-touch-icon" href="img/logo.PNG">
+  
+  <!-- Structured Data (Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://annapakseleva.ru/#organization",
+    "name": "Студия дизайна интерьеров Анны Пакселевой",
+    "alternateName": "Анна Пакселева",
+    "url": "https://annapakseleva.ru/",
+    "logo": "https://annapakseleva.ru/img/logo.PNG",
+    "image": [
+      "https://annapakseleva.ru/img/photo_2025-12-02%2016.15.13.webp",
+      "https://annapakseleva.ru/img/photo_2025-12-02%2016.15.15.webp",
+      "https://annapakseleva.ru/img/photo_2025-12-02%2016.15.17.webp"
+    ],
+    "description": "Студия дизайна интерьеров в Калининграде. Создаём продуманные, эстетичные и функциональные интерьеры с инженерной точностью и сопровождением ремонта.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Калининград",
+      "addressRegion": "Калининградская область",
+      "addressCountry": "RU"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "54.7104",
+      "longitude": "20.4522"
+    },
+    "telephone": "+79210087258",
+    "priceRange": "3000-5000",
+    "currenciesAccepted": "RUB",
+    "paymentAccepted": "Cash, Credit Card",
+    "areaServed": {
+      "@type": "City",
+      "name": "Калининград"
+    },
+    "founder": {
+      "@type": "Person",
+      "name": "Анна Пакселева",
+      "jobTitle": "Дизайнер интерьеров",
+      "description": "Основатель студии интерьерного дизайна с инженерно-строительным образованием"
+    },
+    "sameAs": [
+      "https://t.me/annapakseleva",
+      "https://wa.me/79210087258"
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "8",
+      "bestRating": "5",
+      "worstRating": "5"
+    }
+  }
+  </script>
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Дизайн интерьера",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "Студия дизайна интерьеров Анны Пакселевой"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Калининград"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Услуги дизайна интерьера",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Бриф и ТЗ",
+            "description": "Глубокое изучение вашего образа жизни, привычек и пожеланий. Формирование детального технического задания."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Планировочные решения",
+            "description": "2–3 варианта планировок с детальной проработкой функциональных зон и эргономики пространства."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "3D-визуализации",
+            "description": "Фотореалистичные изображения вашего будущего интерьера с точной передачей атмосферы, стиля и материалов."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Комплект чертежей",
+            "description": "Полная рабочая документация для строителей: планы, разрезы, узлы, схемы освещения и электрики."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Подбор материалов",
+            "description": "Оптимальные чистовые материалы, сантехника и освещение с учётом вашего бюджета."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Авторское сопровождение",
+            "description": "Контроль реализации проекта, консультации строителей и корректировки в процессе ремонта."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Вы действительно учитываете наши пожелания, или проект будет «на вкус дизайнера»?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да, моя задача — создать интерьер, отражающий именно вашу жизнь и привычки. Перед началом работы я собираю подробное ТЗ, изучаю ваш образ жизни, сценарии использования пространства и только после этого перехожу к работе. Проект согласовывается на каждом этапе."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Ваши визуализации реально совпадают с тем, что получится в итоге?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да. Мой подход основан на инженерном опыте: все решения продуманы технически и полностью реализуемы. Строители получают детальные чертежи и понятные схемы. Материалы подбираются исходя из их наличия и удобства доставки."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Что входит в авторское сопровождение?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Я присутствую в чате с бригадой, контролирую соответствие работ проекту, отвечаю на вопросы строителей, даю рекомендации по материалам и корректирую решения, если требуется. Вы не остаётесь один на один с ремонтом."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "А если у нас своя бригада — вы сможете работать с ними?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да. Я работаю как с партнёрскими бригадами, так и с вашими специалистами. В последнем случае можно подключить авторское сопровождение, чтобы реализация прошла спокойно и без ошибок."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Можно ли экономить с вашим проектом?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да! Благодаря строительному опыту я знаю, где можно сэкономить без потери качества, а где экономить нельзя. Я всегда предлагаю оптимальные альтернативы и помогаю держать бюджет под контролем."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Сколько времени занимает разработка дизайн-проекта?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "В среднем — около 2 месяцев: планировки → визуализации → рабочие чертежи. Каждый этап начинается только после утверждения предыдущего — вы постоянно участвуете в процессе."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Может ли быть такое, что каких-то материалов не окажется в ходе реализации?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да, такие ситуации бывают. Материалы имеют свойство заканчиваться. Но я всегда остаюсь на связи, чтобы подобрать замену, при этом не изменить конечный результат."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- Header -->
@@ -200,7 +435,7 @@
           </div>
           <div class="hero__image">
             <div class="hero__image-wrapper">
-              <img src="img/photo_2025-12-02 16.15.13.webp" alt="Дизайн интерьера от студии Анны Пакселевой" loading="eager">
+              <img src="img/photo_2025-12-02 16.15.13.webp" alt="Дизайн интерьера под ключ в Калининграде от студии Анны Пакселевой — продуманный и функциональный интерьер с инженерной точностью" loading="eager" width="800" height="600">
             </div>
           </div>
         </div>
@@ -768,7 +1003,7 @@
           </div>
           <div class="gifts__image fade-in">
             <div class="gifts__image-wrapper">
-              <img src="img/photo_2025-12-02 16.15.15.webp" alt="Интерьер от студии Анны Пакселевой" loading="lazy">
+              <img src="img/photo_2025-12-02 16.15.15.webp" alt="Реализованный дизайн-проект интерьера от студии Анны Пакселевой в Калининграде — эстетичный и функциональный интерьер" loading="lazy" width="800" height="600">
             </div>
           </div>
         </div>
@@ -782,7 +1017,7 @@
           <div class="about__image fade-in">
             <div class="about__decoration"></div>
             <div class="about__image-wrapper">
-              <img src="img/photo_2025-12-02 16.15.17.webp" alt="Анна Пакселева — руководитель студии дизайна" loading="lazy">
+              <img src="img/photo_2025-12-02 16.15.17.webp" alt="Анна Пакселева — дизайнер интерьеров в Калининграде, основатель студии дизайна с инженерно-строительным образованием" loading="lazy" width="600" height="800">
             </div>
           </div>
           <div class="about__content fade-in">
@@ -1130,7 +1365,7 @@
                 </span>
                 <div class="contact__info-text">
                   <div class="contact__info-label">Телефон</div>
-                  <a href="tel:+79000000000" class="contact__info-link">+7 (900) 000-00-00</a>
+                  <a href="tel:+79210087258" class="contact__info-link">+7 (921) 008-72-58</a>
                 </div>
               </div>
               
@@ -1148,10 +1383,10 @@
             <div class="contact__socials-wrapper">
               <p class="contact__socials-label">Или напишите в мессенджер:</p>
               <div class="contact__socials">
-                <a href="#" class="contact__social" aria-label="WhatsApp" data-analytics="whatsapp">
+                <a href="https://wa.me/79210087258" target="_blank" class="contact__social" aria-label="WhatsApp" data-analytics="whatsapp">
                   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 </a>
-                <a href="#" class="contact__social" aria-label="Telegram" data-analytics="telegram">
+                <a href="https://t.me/annapakseleva" target="_blank" class="contact__social" aria-label="Telegram" data-analytics="telegram">
                   <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
                 </a>
               </div>
@@ -1293,13 +1528,13 @@
   <!-- Floating Contact Button -->
   <div class="float-contact">
     <div class="float-contact__menu">
-      <a href="tel:+79001234567" class="float-contact__item float-contact__item--phone" title="Позвонить">
+      <a href="tel:+79210087258" class="float-contact__item float-contact__item--phone" title="Позвонить">
         <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
       </a>
       <a href="https://t.me/annapakseleva" target="_blank" class="float-contact__item float-contact__item--telegram" title="Telegram">
         <svg viewBox="0 0 24 24"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-8.609 3.33c-2.068.8-4.133 1.598-5.724 2.21a405.15 405.15 0 0 1-2.849 1.09c-.42.147-.99.332-1.473.901-.728.855.054 1.716.423 1.966.309.21.65.308.89.363.293.066.616.108.897.126.562.036 1.125.072 1.687.108.562.036 1.125.072 1.687.108.562.036 1.125.072 1.687.108l.072.004a1.5 1.5 0 0 0 1.267-.576l6.242-7.21-.001.001c.034-.04.073-.085.12-.124a.606.606 0 0 1 .348-.132.5.5 0 0 1 .378.155.53.53 0 0 1 .155.378.606.606 0 0 1-.132.348c-.039.047-.084.086-.124.12l.001-.001-5.385 5.772-.001.001a.5.5 0 0 0-.12.48l.988 3.702.988 3.702c.096.36.278.715.59.957.312.242.753.334 1.132.166a2.23 2.23 0 0 0 .665-.436l2.007-1.74 2.007-1.74.003-.002a.5.5 0 0 1 .652.001l2.995 2.396a2.23 2.23 0 0 0 1.417.508 2.242 2.242 0 0 0 2.151-1.63l2.87-10.77.001-.002a2.242 2.242 0 0 0-.215-1.023 2.242 2.242 0 0 0-2.151-1.287z" fill="currentColor"/></svg>
       </a>
-      <a href="https://wa.me/79001234567" target="_blank" class="float-contact__item float-contact__item--whatsapp" title="WhatsApp">
+      <a href="https://wa.me/79210087258" target="_blank" class="float-contact__item float-contact__item--whatsapp" title="WhatsApp">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/></svg>
       </a>
     </div>
@@ -1324,6 +1559,28 @@
       <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
   </div>
+
+  <!-- Structured Data for Reviews -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "itemReviewed": {
+      "@type": "LocalBusiness",
+      "name": "Студия дизайна интерьеров Анны Пакселевой"
+    },
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "5",
+      "bestRating": "5"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Елена Ковалёва"
+    },
+    "reviewBody": "Обратились к Анне после неудачного опыта с предыдущим дизайнером. Сразу почувствовали разницу — она действительно слушает и понимает, как мы живём. Визуализации совпали с реальностью на 100%, строители не задавали лишних вопросов благодаря детальным чертежам. Теперь живём в интерьере, который действительно наш."
+  }
+  </script>
 
   <!-- Scripts -->
   <script src="js/main.js"></script>

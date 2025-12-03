@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Главная страница -->
+  <url>
+    <loc>https://annapakseleva.ru/</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://annapakseleva.ru/img/photo_2025-12-02%2016.15.13.webp</image:loc>
+      <image:title>Дизайн интерьера от студии Анны Пакселевой</image:title>
+      <image:caption>Продуманные, эстетичные и функциональные интерьеры с инженерной точностью</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://annapakseleva.ru/img/photo_2025-12-02%2016.15.15.webp</image:loc>
+      <image:title>Интерьер от студии Анны Пакселевой</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://annapakseleva.ru/img/photo_2025-12-02%2016.15.17.webp</image:loc>
+      <image:title>Анна Пакселева — руководитель студии дизайна</image:title>
+    </image:image>
+  </url>
+  
+  <!-- Секции с якорями (для внутренней навигации) -->
+  <url>
+    <loc>https://annapakseleva.ru/#services</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://annapakseleva.ru/#tariffs</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://annapakseleva.ru/#portfolio</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://annapakseleva.ru/#about</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://annapakseleva.ru/#reviews</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://annapakseleva.ru/#faq</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://annapakseleva.ru/#contact</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+</urlset>
+

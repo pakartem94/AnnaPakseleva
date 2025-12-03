@@ -1,0 +1,35 @@
+# robots.txt для сайта студии дизайна интерьеров Анны Пакселевой
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /logs/
+Disallow: /md/
+Disallow: /tz/
+
+# Разрешаем индексацию изображений
+Allow: /img/
+
+# Разрешаем индексацию CSS и JS для лучшего понимания контента
+Allow: /css/
+Allow: /js/
+
+# Sitemap
+Sitemap: https://annapakseleva.ru/sitemap.xml
+
+# Crawl-delay для вежливой индексации
+Crawl-delay: 1
+
+# Специальные правила для поисковых систем
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Yandex
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+

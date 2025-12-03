@@ -146,38 +146,196 @@
   // ===========================================
   // Phone Mask
   // ===========================================
-  function formatPhone(value) {
-    const digits = value.replace(/\D/g, '');
+  function formatPhoneNumber(digits) {
+    // Ограничиваем до 10 цифр (номер после +7)
+    digits = digits.substring(0, 10);
+    
+    // Форматируем в +7 (___) ___-__-__
     let formatted = '+7';
     
-    if (digits.length > 1) {
-      formatted += ' (' + digits.substring(1, 4);
+    if (digits.length > 0) {
+      formatted += ' (' + digits.substring(0, 3);
     }
     if (digits.length >= 4) {
-      formatted += ') ' + digits.substring(4, 7);
+      formatted += ') ' + digits.substring(3, 6);
     }
     if (digits.length >= 7) {
-      formatted += '-' + digits.substring(7, 9);
+      formatted += '-' + digits.substring(6, 8);
     }
     if (digits.length >= 9) {
-      formatted += '-' + digits.substring(9, 11);
+      formatted += '-' + digits.substring(8, 10);
     }
     
     return formatted;
   }
 
+  function getCursorPosition(newValue) {
+    // Простая логика: всегда ставим курсор в конец строки
+    // Это гарантирует последовательный ввод цифр
+    const minPos = newValue.startsWith('+7') ? 3 : (newValue.startsWith('+') ? 1 : 0);
+    return Math.max(minPos, newValue.length);
+  }
+
   document.querySelectorAll('input[type="tel"]').forEach(input => {
+    let lastValue = input.value || '';
+    let lastInputChar = '';
+    
+    input.addEventListener('beforeinput', (e) => {
+      // Сохраняем последний введенный символ
+      if (e.inputType === 'insertText' || e.inputType === 'insertCompositionText') {
+        lastInputChar = e.data || '';
+      }
+    });
+    
     input.addEventListener('input', (e) => {
-      const start = e.target.selectionStart;
-      const before = e.target.value.length;
-      e.target.value = formatPhone(e.target.value);
-      const after = e.target.value.length;
-      e.target.setSelectionRange(start + after - before, start + after - before);
+      const target = e.target;
+      const oldValue = lastValue || '';
+      const inputValue = target.value;
+      
+      // Определяем, добавляется ли символ или удаляется
+      const isAdding = inputValue.length > oldValue.length;
+      
+      let result = '';
+      let phoneDigits = '';
+      
+      // Если поле пустое, обрабатываем первый символ
+      if (!oldValue || oldValue.trim() === '') {
+        const firstChar = lastInputChar || inputValue[0] || '';
+        
+        // Если вбиваю +, добавляй +
+        if (firstChar === '+') {
+          result = '+';
+          phoneDigits = '';
+        }
+        // Если вбиваю 7, добавляй +7
+        else if (firstChar === '7') {
+          result = '+7';
+          phoneDigits = '';
+        }
+        // Если вбиваю 8, заменяй 8 на +7
+        else if (firstChar === '8') {
+          result = '+7';
+          phoneDigits = '';
+        }
+        // Если остальные цифры, добавляй +7 и потом цифру
+        else if (/\d/.test(firstChar)) {
+          phoneDigits = firstChar;
+          result = formatPhoneNumber(phoneDigits);
+        }
+        // Если ничего не введено
+        else {
+          result = '';
+        }
+      } else {
+        // Поле не пустое - обрабатываем как обычно
+        const digits = inputValue.replace(/\D/g, '');
+        
+        if (digits.length === 0) {
+          // Проверяем, есть ли плюс
+          if (inputValue.includes('+')) {
+            result = '+';
+          } else {
+            result = '';
+          }
+        } else {
+          const firstDigit = digits[0];
+          
+          // Если первый символ 8 или 7, убираем его
+          if (firstDigit === '8' || firstDigit === '7') {
+            phoneDigits = digits.substring(1);
+          } else {
+            phoneDigits = digits;
+          }
+          
+          result = formatPhoneNumber(phoneDigits);
+        }
+      }
+      
+      // Сохраняем новое значение
+      target.value = result;
+      lastValue = result;
+      lastInputChar = '';
+      
+      // Корректируем позицию курсора - просто ставим в конец
+      if (result) {
+        const newCursorPos = getCursorPosition(result);
+        target.setSelectionRange(newCursorPos, newCursorPos);
+      }
     });
 
     input.addEventListener('focus', (e) => {
-      if (!e.target.value) {
-        e.target.value = '+7';
+      const target = e.target;
+      const value = target.value || '';
+      
+      // При фокусе не устанавливаем автоматически +7, оставляем поле как есть
+      // Если поле пустое, просто оставляем пустым
+      if (value && value.trim() !== '') {
+        // Форматируем существующее значение, если нужно
+        const digits = value.replace(/\D/g, '');
+        if (digits.length > 0) {
+          const firstDigit = digits[0];
+          let phoneDigits = '';
+          
+          if (firstDigit === '8' || firstDigit === '7') {
+            phoneDigits = digits.substring(1);
+          } else {
+            phoneDigits = digits;
+          }
+          
+          const formatted = formatPhoneNumber(phoneDigits);
+          if (formatted !== value) {
+            target.value = formatted;
+            lastValue = formatted;
+          }
+        } else if (value === '+') {
+          lastValue = '+';
+        }
+      }
+    });
+
+    input.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const target = e.target;
+      const pasted = (e.clipboardData || window.clipboardData).getData('text');
+      
+      // Обрабатываем вставленный текст
+      const digits = pasted.replace(/\D/g, '');
+      let result = '';
+      
+      if (digits.length > 0) {
+        const firstDigit = digits[0];
+        let phoneDigits = '';
+        
+        if (firstDigit === '8' || firstDigit === '7') {
+          phoneDigits = digits.substring(1);
+        } else {
+          phoneDigits = digits;
+        }
+        
+        result = formatPhoneNumber(phoneDigits);
+      } else if (pasted.includes('+')) {
+        result = '+';
+      }
+      
+      target.value = result;
+      lastValue = result;
+      target.setSelectionRange(result.length, result.length);
+    });
+
+    input.addEventListener('keydown', (e) => {
+      const target = e.target;
+      const cursorPos = target.selectionStart || 0;
+      const value = target.value || '';
+      
+      // Если пользователь пытается удалить +7 или +, предотвращаем это
+      if ((e.key === 'Backspace' || e.key === 'Delete')) {
+        if (value.startsWith('+7') && cursorPos <= 3) {
+          e.preventDefault();
+          target.setSelectionRange(3, 3);
+        } else if (value.startsWith('+') && !value.startsWith('+7') && cursorPos <= 1) {
+          e.preventDefault();
+          target.setSelectionRange(1, 1);
+        }
       }
     });
   });
@@ -351,7 +509,7 @@
         
         const img = document.createElement('img');
         img.src = path;
-        img.alt = `Дизайн интерьера - проект ${project}, изображение ${fileNum}`;
+        img.alt = `Дизайн интерьера проект ${project} от студии Анны Пакселевой в Калининграде — фото ${fileNum} реализованного интерьера`;
         img.loading = 'lazy';
         
         item.appendChild(img);
@@ -422,7 +580,7 @@
     
     const image = data.images[currentLightboxIndex];
     lightboxImage.src = image.path;
-    lightboxImage.alt = `Дизайн интерьера - проект ${currentProject}, изображение ${image.num}`;
+    lightboxImage.alt = `Дизайн интерьера проект ${currentProject} от студии Анны Пакселевой в Калининграде — фото ${image.num} реализованного интерьера`;
   }
 
   function nextImage() {
