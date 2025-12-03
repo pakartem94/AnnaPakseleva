@@ -1,0 +1,1001 @@
+/* =============================================
+   ANNA PAKSELEVA DESIGN STUDIO
+   Mobile Styles (max-width: 767px)
+   ============================================= */
+
+/* ===========================================
+   MOBILE OVERRIDES
+   =========================================== */
+@media (max-width: 767px) {
+  :root {
+    --font-size-hero: 28px;
+    --font-size-xxl: 24px;
+    --font-size-xl: 18px;
+    --font-size-lg: 16px;
+    --space-section: 50px;
+    --space-xxl: 48px;
+    --space-xl: 32px;
+    --space-lg: 20px;
+    --space-md: 12px;
+    --space-sm: 8px;
+    --container-padding: 16px;
+  }
+
+  /* Предотвращение выхода контента за пределы экрана */
+  * {
+    max-width: 100%;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  /* ===========================================
+     HEADER
+     =========================================== */
+  .header {
+    padding: var(--space-sm) 0;
+  }
+
+  .header__logo-text {
+    font-size: 18px;
+  }
+
+  .nav__list {
+    display: none;
+  }
+
+  .nav__cta {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+    width: 40px;
+    height: 40px;
+  }
+
+  .burger__line {
+    width: 24px;
+    height: 2px;
+  }
+
+  /* ===========================================
+     MOBILE MENU
+     =========================================== */
+  .mobile-menu {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-bg-dark);
+    z-index: 2000;
+    padding: var(--space-xxl) var(--space-lg);
+    transform: translateX(100%);
+    transition: transform var(--transition-base);
+    overflow-y: auto;
+  }
+
+  .mobile-menu--open {
+    transform: translateX(0);
+  }
+
+  .mobile-menu__close {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-on-dark);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .mobile-menu__close svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    fill: none;
+  }
+
+  .mobile-menu__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .mobile-menu__link {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-on-dark);
+    font-family: var(--font-heading);
+    display: block;
+    padding: var(--space-sm) 0;
+    transition: opacity var(--transition-fast);
+  }
+  
+  .mobile-menu__link:hover {
+    opacity: 0.7;
+  }
+
+  .mobile-menu__cta {
+    margin-top: var(--space-xl);
+  }
+
+  .mobile-menu__cta .btn {
+    width: 100%;
+  }
+
+  /* ===========================================
+     HERO SECTION
+     =========================================== */
+  .hero {
+    padding-top: 50px;
+    padding-bottom: var(--space-xl);
+    min-height: auto;
+    height: auto;
+    max-height: none;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Убираем ограничение высоты для hero, чтобы фон мог растягиваться */
+  .hero {
+    position: relative;
+  }
+
+  .hero__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-height: 100%;
+    height: auto;
+    max-height: none;
+  }
+
+  .hero .container {
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-md);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  .hero__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    min-height: auto;
+    padding: 0;
+    margin: 0;
+    margin-bottom: var(--space-lg);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .hero__content {
+    text-align: center;
+    align-items: center;
+    gap: var(--space-md);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .hero__badge {
+    font-size: 11px;
+    padding: var(--space-xs) var(--space-sm);
+    margin-bottom: var(--space-sm);
+    width: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .hero__title {
+    font-size: var(--font-size-hero);
+    line-height: 1.2;
+    margin-bottom: var(--space-sm);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    padding: 0;
+  }
+
+  .hero__title span {
+    display: block;
+  }
+
+  .hero__subtitle {
+    margin: 0 auto var(--space-md);
+    max-width: 100%;
+    width: 100%;
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    padding: 0;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .hero__cta {
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+  }
+
+  .hero__cta .btn {
+    width: 100%;
+    max-width: 100%;
+    padding: var(--space-md) var(--space-lg);
+    font-size: var(--font-size-base);
+    box-sizing: border-box;
+  }
+
+  /* Одновременный блеск для всех кнопок на мобильных */
+  .hero__cta .btn--primary::before,
+  .hero__cta .btn--secondary::before {
+    animation-delay: 0s !important;
+  }
+
+  .hero__image {
+    height: auto !important;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto var(--space-lg);
+    order: -1;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .hero__image-wrapper {
+    height: auto;
+    max-height: none;
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: var(--radius-md);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .hero__image-wrapper::before {
+    display: none;
+  }
+
+  .hero__image img {
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    min-height: auto;
+    display: block;
+    box-sizing: border-box;
+  }
+
+  .hero__features {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+    max-width: 100%;
+    margin: var(--space-lg) auto 0;
+    padding: 0;
+  }
+
+  .hero__feature {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    padding: var(--space-sm);
+    gap: var(--space-sm);
+    font-size: 12px;
+    line-height: 1.5;
+    min-height: auto;
+  }
+
+  .hero__feature-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+
+  .hero__feature-icon svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* ===========================================
+     SECTIONS
+     =========================================== */
+  .section {
+    padding: var(--space-section) 0;
+  }
+
+  .section__header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .section__title {
+    font-size: var(--font-size-xxl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .section__subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  /* ===========================================
+     GRIDS - SINGLE COLUMN
+     =========================================== */
+  .services__grid,
+  .why-us__grid,
+  .reviews__grid,
+  .faq__list {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .faq__list .faq-item:last-child:nth-child(odd) {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .service-card,
+  .why-card,
+  .review-card {
+    margin: 0 !important;
+  }
+
+  /* Все карточки сервисов - иконка слева от текста */
+  .services__grid .service-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+  }
+
+  .services__grid .service-card .service-card__icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .services__grid .service-card .service-card__icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .services__grid .service-card .service-card__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .services__grid .service-card .service-card__title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-xs);
+  }
+
+  .services__grid .service-card .service-card__text {
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+  }
+
+  /* ===========================================
+     TARIFFS
+     =========================================== */
+  #tariffs .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .tariffs__grid {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0 var(--container-padding);
+  }
+
+  .tariffs__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tariff-card {
+    flex: 0 0 calc(100% - var(--space-md) * 2);
+    max-width: calc(100% - var(--space-md) * 2);
+    min-width: 0;
+  }
+
+  /* ===========================================
+     STAGES
+     =========================================== */
+  .stages__timeline {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .stage {
+    padding: var(--space-md);
+  }
+
+  .stage__number {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .stage__title {
+    font-size: var(--font-size-lg);
+  }
+
+  .stage__text {
+    font-size: var(--font-size-sm);
+  }
+
+  /* ===========================================
+     PORTFOLIO - МОБИЛЬНАЯ ВЕРСИЯ
+     =========================================== */
+  .portfolio {
+    padding: var(--space-section) 0;
+  }
+
+  .portfolio .container {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  .portfolio .section__header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .portfolio .section__title {
+    font-size: var(--font-size-xxl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .portfolio .section__subtitle {
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+  }
+
+  .portfolio__tabs {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+    padding: 0;
+  }
+
+  .portfolio__tab {
+    flex: 1;
+    min-width: calc(33.333% - var(--space-sm));
+    max-width: calc(33.333% - var(--space-sm));
+    font-size: var(--font-size-sm);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background-color: transparent;
+    color: var(--color-text-muted);
+    transition: all var(--transition-fast);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .portfolio__tab:active {
+    transform: scale(0.98);
+  }
+
+  .portfolio__tab--active {
+    background-color: var(--color-primary);
+    color: var(--color-text-on-dark);
+    border-color: var(--color-primary);
+  }
+
+  .portfolio__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 120px;
+    gap: 4px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .portfolio__item {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    /* Убираем все inline стили - используем CSS паттерн */
+    grid-column: unset !important;
+    grid-row: unset !important;
+  }
+
+  .portfolio__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--transition-base);
+  }
+
+  .portfolio__item:active img {
+    transform: scale(0.98);
+  }
+
+  .portfolio__more {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-xl);
+    padding: 0;
+  }
+
+  .portfolio__more .btn {
+    width: 100%;
+    max-width: 300px;
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  /* ===========================================
+     PORTFOLIO - ПАТТЕРН БЕЗ ПРОПУСКОВ
+     Паттерн повторяется каждые 12 элементов
+     Каждый паттерн точно заполняет сетку 2 колонки
+     =========================================== */
+  
+  /* ===========================================
+     PORTFOLIO - ПАТТЕРН С ПОВТОРЕНИЕМ
+     Паттерн повторяется каждые 12 элементов
+     Элемент 13 = элемент 1, элемент 14 = элемент 2, и т.д.
+     =========================================== */
+  
+  /* ========== ПЕРВЫЙ ЭКРАН (элементы 1-6, 13-18, 25-30, ...) ========== */
+  /* Элемент 1, 13, 25, ...: Высокий вертикальный слева (1x3) */
+  .portfolio__item:nth-child(12n+1) {
+    grid-column: span 1 !important;
+    grid-row: span 3 !important;
+  }
+
+  /* Элемент 2, 14, 26, ...: Маленький справа вверху (1x2) */
+  .portfolio__item:nth-child(12n+2) {
+    grid-column: span 1 !important;
+    grid-row: span 2 !important;
+  }
+
+  /* Элемент 3, 15, 27, ...: Маленький справа вверху (1x2) */
+  .portfolio__item:nth-child(12n+3) {
+    grid-column: span 1 !important;
+    grid-row: span 2 !important;
+  }
+
+  /* Элемент 4, 16, 28, ...: Квадратный слева внизу (1x3) */
+  .portfolio__item:nth-child(12n+4) {
+    grid-column: span 1 !important;
+    grid-row: span 3 !important;
+  }
+
+  /* Элемент 5, 17, 29, ...: Квадратный справа внизу (1x2) */
+  .portfolio__item:nth-child(12n+5) {
+    grid-column: span 1 !important;
+    grid-row: span 2 !important;
+  }
+
+  /* Элемент 6, 18, 30, ...: Широкий горизонтальный внизу (1x3) */
+  .portfolio__item:nth-child(12n+6) {
+    grid-column: span 1 !important;
+    grid-row: span 3 !important;
+  }
+
+  /* ========== ВТОРОЙ ЭКРАН (элементы 7-12, 19-24, 31-36, ...) ========== */
+  /* Элемент 7, 19, 31, ...: Квадратный слева вверху (1x2) */
+  .portfolio__item:nth-child(12n+7) {
+    grid-column: span 1 !important;
+    grid-row: span 2 !important;
+  }
+
+  /* Элемент 8, 20, 32, ...: Квадратный справа вверху (1x3) */
+  .portfolio__item:nth-child(12n+8) {
+    grid-column: span 1 !important;
+    grid-row: span 3 !important;
+  }
+
+  /* Элемент 9, 21, 33, ...: Высокий вертикальный слева (1x2) */
+  .portfolio__item:nth-child(12n+9) {
+    grid-column: span 1 !important;
+    grid-row: span 2 !important;
+  }
+
+  /* Элемент 10, 22, 34, ...: Квадратный справа (1x2) */
+  .portfolio__item:nth-child(12n+10) {
+    grid-column: span 1 !important;
+    grid-row: span 2 !important;
+  }
+
+  /* Элемент 11, 23, 35, ...: Квадратный справа (1x4) */
+  .portfolio__item:nth-child(12n+11) {
+    grid-column: span 1 !important;
+    grid-row: span 4 !important;
+  }
+
+  /* Элемент 12, 24, 36, ...: Широкий горизонтальный внизу (1x2) */
+  .portfolio__item:nth-child(12n+12) {
+    grid-column: span 1 !important;
+    grid-row: span 2 !important;
+  }
+
+  .portfolio__more {
+    margin-top: var(--space-lg);
+  }
+
+  /* ===========================================
+     PAINS SECTION
+     =========================================== */
+  #pains .container {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  .pains__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pain-card {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pain-card__header {
+    width: 100%;
+    margin: 0;
+    padding: var(--space-lg);
+  }
+
+  .pain-card__body {
+    width: 100%;
+    margin: 0;
+    padding: var(--space-lg);
+  }
+
+  /* ===========================================
+     LAYOUT SECTIONS
+     =========================================== */
+  .gifts__inner,
+  .about__inner,
+  .contact__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .gifts__content,
+  .about__content,
+  .contact__content {
+    order: 2;
+  }
+
+  .gifts__image,
+  .about__image {
+    order: -1;
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .gifts__image-wrapper,
+  .about__image-wrapper {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .gifts__image img,
+  .about__image img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: center 15%;
+  }
+
+  .about__decoration {
+    display: none;
+  }
+
+  /* ===========================================
+     CONTACT SECTION
+     =========================================== */
+  .contact {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .contact .container {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  .contact__inner {
+    gap: var(--space-xl);
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .contact__content {
+    order: 2;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  #contactForm {
+    order: 1;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .contact__info {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .contact__info-item {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .contact__socials-wrapper {
+    margin-top: var(--space-lg);
+  }
+
+  .contact__socials {
+    gap: var(--space-md);
+  }
+
+  /* ===========================================
+     FORMS
+     =========================================== */
+  .form {
+    width: 100%;
+    max-width: 100%;
+    padding: var(--space-lg);
+    box-sizing: border-box;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .form__row {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .form__group {
+    margin-bottom: var(--space-md);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .form__label {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-xs);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .form__hint {
+    display: block;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+
+  .form__input,
+  .form__select,
+  .form__textarea {
+    font-size: var(--font-size-base);
+    padding: var(--space-sm) var(--space-md);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .form__textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  .form__submit {
+    margin-top: var(--space-lg);
+    width: 100%;
+  }
+
+  .form__submit .btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ===========================================
+     ABOUT HIGHLIGHTS
+     =========================================== */
+  .about__highlights {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .about__highlight {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  /* ===========================================
+     FOOTER
+     =========================================== */
+  .footer {
+    padding: var(--space-xl) 0;
+  }
+
+  .footer__inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-md);
+    min-height: auto;
+  }
+
+  .footer__inner > * {
+    justify-content: center;
+  }
+
+  .footer__logo-text {
+    font-size: 18px;
+  }
+
+  .footer__copy {
+    font-size: var(--font-size-sm);
+    white-space: normal;
+  }
+
+  .footer__links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+  }
+
+  /* ===========================================
+     MODAL
+     =========================================== */
+  .modal__content {
+    width: calc(100% - var(--space-lg) * 2);
+    max-width: 100%;
+    max-height: 90vh;
+    margin: var(--space-lg);
+    padding: var(--space-lg);
+  }
+
+  .modal__title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  /* ===========================================
+     FLOAT CONTACT BUTTON
+     =========================================== */
+  .float-contact {
+    bottom: var(--space-md);
+    right: var(--space-md);
+  }
+
+  .float-contact__btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  .float-contact__item {
+    width: 44px;
+    height: 44px;
+  }
+
+  .float-contact__icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* ===========================================
+     LIGHTBOX
+     =========================================== */
+  .lightbox__content {
+    padding: var(--space-lg);
+  }
+
+  .lightbox__nav {
+    width: 40px;
+    height: 40px;
+  }
+
+  .lightbox__nav--prev {
+    left: var(--space-sm);
+  }
+
+  .lightbox__nav--next {
+    right: var(--space-sm);
+  }
+
+  .lightbox__close {
+    width: 40px;
+    height: 40px;
+    top: var(--space-sm);
+    right: var(--space-sm);
+  }
+
+  .lightbox__nav svg,
+  .lightbox__close svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* ===========================================
+     BUTTONS
+     =========================================== */
+  .btn {
+    font-size: var(--font-size-base);
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .btn--sm {
+    font-size: var(--font-size-sm);
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .btn--lg {
+    font-size: var(--font-size-lg);
+    padding: var(--space-lg) var(--space-xl);
+  }
+
+  /* ===========================================
+     UTILITIES
+     =========================================== */
+  .text-center {
+    text-align: center;
+  }
+
+  .container {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+}

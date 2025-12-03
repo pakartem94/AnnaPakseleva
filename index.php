@@ -19,10 +19,31 @@
     (function() {
       function detectDevice() {
         const width = window.innerWidth;
+        if (width < 768) {
+          return 'mobile';
+        }
         if (width >= 768 && width <= 1199) {
           return 'tablet';
         }
-        return 'desktop'; // desktop или mobile (mobile обрабатывается в основном CSS)
+        return 'desktop';
+      }
+
+      function loadMobileAssets() {
+        // Загружаем CSS для мобильных
+        const mobileCSS = document.createElement('link');
+        mobileCSS.rel = 'stylesheet';
+        mobileCSS.href = 'css/mobile.css';
+        document.head.appendChild(mobileCSS);
+
+        // Загружаем JS для мобильных сразу, но после основного JS
+        const mobileJS = document.createElement('script');
+        mobileJS.src = 'js/mobile.js';
+        mobileJS.defer = true;
+        if (document.body) {
+          document.body.appendChild(mobileJS);
+        } else {
+          document.head.appendChild(mobileJS);
+        }
       }
 
       function loadTabletAssets() {
@@ -37,12 +58,33 @@
           const tabletJS = document.createElement('script');
           tabletJS.src = 'js/tablet.js';
           tabletJS.defer = true;
-          document.body.appendChild(tabletJS);
+          if (document.body) {
+            document.body.appendChild(tabletJS);
+          } else {
+            document.head.appendChild(tabletJS);
+          }
         });
       }
 
+      function removeMobileAssets() {
+        const mobileCSS = document.querySelector('link[href="css/mobile.css"]');
+        const mobileJS = document.querySelector('script[src="js/mobile.js"]');
+        if (mobileCSS) mobileCSS.remove();
+        if (mobileJS) mobileJS.remove();
+      }
+
+      function removeTabletAssets() {
+        const tabletCSS = document.querySelector('link[href="css/tablet.css"]');
+        const tabletJS = document.querySelector('script[src="js/tablet.js"]');
+        if (tabletCSS) tabletCSS.remove();
+        if (tabletJS) tabletJS.remove();
+      }
+
       // Определяем устройство и загружаем нужные файлы
-      if (detectDevice() === 'tablet') {
+      const device = detectDevice();
+      if (device === 'mobile') {
+        loadMobileAssets();
+      } else if (device === 'tablet') {
         loadTabletAssets();
       }
 
@@ -52,15 +94,25 @@
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function() {
           const currentDevice = detectDevice();
+          const hasMobileCSS = document.querySelector('link[href="css/mobile.css"]');
+          const hasMobileJS = document.querySelector('script[src="js/mobile.js"]');
           const hasTabletCSS = document.querySelector('link[href="css/tablet.css"]');
           const hasTabletJS = document.querySelector('script[src="js/tablet.js"]');
           
-          if (currentDevice === 'tablet' && !hasTabletCSS) {
-            loadTabletAssets();
-          } else if (currentDevice !== 'tablet' && (hasTabletCSS || hasTabletJS)) {
-            // Удаляем планшетные файлы, если перешли на другое устройство
-            if (hasTabletCSS) hasTabletCSS.remove();
-            if (hasTabletJS) hasTabletJS.remove();
+          if (currentDevice === 'mobile') {
+            if (!hasMobileCSS) {
+              removeTabletAssets();
+              loadMobileAssets();
+            }
+          } else if (currentDevice === 'tablet') {
+            if (!hasTabletCSS) {
+              removeMobileAssets();
+              loadTabletAssets();
+            }
+          } else {
+            // Desktop
+            removeMobileAssets();
+            removeTabletAssets();
           }
         }, 300);
       });
@@ -194,48 +246,60 @@
             <div class="service-card__icon">
               <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
             </div>
-            <h3 class="service-card__title">Бриф и ТЗ</h3>
-            <p class="service-card__text">Глубокое изучение вашего образа жизни, привычек и пожеланий. Формирование детального технического задания.</p>
+            <div class="service-card__content">
+              <h3 class="service-card__title">Бриф и ТЗ</h3>
+              <p class="service-card__text">Глубокое изучение вашего образа жизни, привычек и пожеланий. Формирование детального технического задания.</p>
+            </div>
           </div>
           
           <div class="service-card">
             <div class="service-card__icon">
               <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
             </div>
-            <h3 class="service-card__title">Планировочные решения</h3>
-            <p class="service-card__text">2–3 варианта планировок с детальной проработкой функциональных зон и эргономики пространства.</p>
+            <div class="service-card__content">
+              <h3 class="service-card__title">Планировочные решения</h3>
+              <p class="service-card__text">2–3 варианта планировок с детальной проработкой функциональных зон и эргономики пространства.</p>
+            </div>
           </div>
           
           <div class="service-card">
             <div class="service-card__icon">
               <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
             </div>
-            <h3 class="service-card__title">3D-визуализации</h3>
-            <p class="service-card__text">Фотореалистичные изображения вашего будущего интерьера с точной передачей атмосферы, стиля и материалов.</p>
+            <div class="service-card__content">
+              <h3 class="service-card__title">3D-визуализации</h3>
+              <p class="service-card__text">Фотореалистичные изображения вашего будущего интерьера с точной передачей атмосферы, стиля и материалов.</p>
+            </div>
           </div>
           
           <div class="service-card">
             <div class="service-card__icon">
               <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
             </div>
-            <h3 class="service-card__title">Комплект чертежей</h3>
-            <p class="service-card__text">Полная рабочая документация для строителей: планы, разрезы, узлы, схемы освещения и электрики.</p>
+            <div class="service-card__content">
+              <h3 class="service-card__title">Комплект чертежей</h3>
+              <p class="service-card__text">Полная рабочая документация для строителей: планы, разрезы, узлы, схемы освещения и электрики.</p>
+            </div>
           </div>
           
           <div class="service-card">
             <div class="service-card__icon">
               <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
             </div>
-            <h3 class="service-card__title">Подбор материалов</h3>
-            <p class="service-card__text">Оптимальные чистовые материалы, сантехника и освещение с учётом вашего бюджета.</p>
+            <div class="service-card__content">
+              <h3 class="service-card__title">Подбор материалов</h3>
+              <p class="service-card__text">Оптимальные чистовые материалы, сантехника и освещение с учётом вашего бюджета.</p>
+            </div>
           </div>
           
           <div class="service-card">
             <div class="service-card__icon">
               <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
-            <h3 class="service-card__title">Авторское сопровождение</h3>
-            <p class="service-card__text">Контроль реализации проекта, консультации строителей и корректировки в процессе ремонта.</p>
+            <div class="service-card__content">
+              <h3 class="service-card__title">Авторское сопровождение</h3>
+              <p class="service-card__text">Контроль реализации проекта, консультации строителей и корректировки в процессе ремонта.</p>
+            </div>
           </div>
         </div>
       </div>
