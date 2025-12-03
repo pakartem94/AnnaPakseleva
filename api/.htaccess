@@ -1,0 +1,15 @@
+# Защита API
+Options -Indexes
+
+# Разрешаем только PHP файлы
+<FilesMatch "\.(php)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Запрет доступа к другим файлам
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|md)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+

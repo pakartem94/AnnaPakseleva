@@ -1,0 +1,24 @@
+# Запрет листинга директорий
+Options -Indexes
+
+# Запрет индексации админ-панели
+Header set X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
+
+# Разрешаем доступ ко всем PHP, CSS, JS файлам
+<FilesMatch "\.(php|css|js)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Защита от прямого доступа к конфигурационным файлам
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|md)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Защита config.php от прямого доступа
+<Files "config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+

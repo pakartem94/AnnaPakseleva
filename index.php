@@ -18,17 +18,17 @@
   <meta name="ICBM" content="54.7104, 20.4522">
   
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://annapakseleva.ru/">
+  <link rel="canonical" href="https://studioap.ru/">
   
   <!-- Sitemap -->
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://annapakseleva.ru/">
+  <meta property="og:url" content="https://studioap.ru/">
   <meta property="og:title" content="Дизайн интерьера в Калининграде — Студия Анны Пакселевой">
   <meta property="og:description" content="Создаём продуманные, эстетичные и функциональные интерьеры с инженерной точностью и сопровождением ремонта. 15 проектов в год. Тарифы от 3000₽/м².">
-  <meta property="og:image" content="https://annapakseleva.ru/img/photo_2025-12-02%2016.15.13.webp">
+  <meta property="og:image" content="https://studioap.ru/img/photo_2025-12-02%2016.15.13.webp">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Дизайн интерьера от студии Анны Пакселевой">
@@ -37,10 +37,10 @@
   
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://annapakseleva.ru/">
+  <meta name="twitter:url" content="https://studioap.ru/">
   <meta name="twitter:title" content="Дизайн интерьера в Калининграде — Студия Анны Пакселевой">
   <meta name="twitter:description" content="Создаём продуманные, эстетичные и функциональные интерьеры с инженерной точностью и сопровождением ремонта.">
-  <meta name="twitter:image" content="https://annapakseleva.ru/img/photo_2025-12-02%2016.15.13.webp">
+  <meta name="twitter:image" content="https://studioap.ru/img/photo_2025-12-02%2016.15.13.webp">
   <meta name="twitter:image:alt" content="Дизайн интерьера от студии Анны Пакселевой">
   
   <!-- Additional Meta Tags -->
@@ -172,15 +172,15 @@
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://annapakseleva.ru/#organization",
+    "@id": "https://studioap.ru/#organization",
     "name": "Студия дизайна интерьеров Анны Пакселевой",
     "alternateName": "Анна Пакселева",
-    "url": "https://annapakseleva.ru/",
-    "logo": "https://annapakseleva.ru/img/logo.PNG",
+    "url": "https://studioap.ru/",
+    "logo": "https://studioap.ru/img/logo.PNG",
     "image": [
-      "https://annapakseleva.ru/img/photo_2025-12-02%2016.15.13.webp",
-      "https://annapakseleva.ru/img/photo_2025-12-02%2016.15.15.webp",
-      "https://annapakseleva.ru/img/photo_2025-12-02%2016.15.17.webp"
+      "https://studioap.ru/img/photo_2025-12-02%2016.15.13.webp",
+      "https://studioap.ru/img/photo_2025-12-02%2016.15.15.webp",
+      "https://studioap.ru/img/photo_2025-12-02%2016.15.17.webp"
     ],
     "description": "Студия дизайна интерьеров в Калининграде. Создаём продуманные, эстетичные и функциональные интерьеры с инженерной точностью и сопровождением ремонта.",
     "address": {
@@ -1072,166 +1072,8 @@
           <p class="section__subtitle">Что говорят о работе со студией</p>
         </header>
         
-        <div class="reviews__grid stagger">
-          <div class="review-card">
-            <div class="review-card__header">
-              <div class="review-card__avatar">ЕК</div>
-              <div class="review-card__info">
-                <div class="review-card__name">Елена Ковалёва</div>
-                <div class="review-card__project">Квартира 85 м²</div>
-              </div>
-              <div class="review-card__stars">
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              </div>
-            </div>
-            <p class="review-card__text">
-              Обратились к Анне после неудачного опыта с предыдущим дизайнером. Сразу почувствовали разницу — она действительно слушает и понимает, как мы живём. Визуализации совпали с реальностью на 100%, строители не задавали лишних вопросов благодаря детальным чертежам. Теперь живём в интерьере, который действительно наш.
-            </p>
-          </div>
-          
-          <div class="review-card">
-            <div class="review-card__header">
-              <div class="review-card__avatar">ДС</div>
-              <div class="review-card__info">
-                <div class="review-card__name">Дмитрий Соколов</div>
-                <div class="review-card__project">Дом 120 м²</div>
-              </div>
-              <div class="review-card__stars">
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              </div>
-            </div>
-            <p class="review-card__text">
-              Брали тариф «Полный контроль» — не пожалели ни разу. Анна была в чате с бригадой, контролировала каждый этап. Когда возникли вопросы по материалам, сразу предложила альтернативы, которые не испортили общую картину. Ремонт прошёл без стресса, всё получилось именно так, как на визуализациях.
-            </p>
-          </div>
-          
-          <div class="review-card">
-            <div class="review-card__header">
-              <div class="review-card__avatar">МВ</div>
-              <div class="review-card__info">
-                <div class="review-card__name">Мария Волкова</div>
-                <div class="review-card__project">Квартира 65 м²</div>
-              </div>
-              <div class="review-card__stars">
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              </div>
-            </div>
-            <p class="review-card__text">
-              У нас была сложная планировка, и я боялась, что дизайнер не учтёт наши потребности. Но Анна провела такой детальный бриф, что я сама удивилась, насколько глубоко она разобралась в нашем образе жизни. Планировочные решения оказались идеальными — всё функционально и удобно. 3D-тур помог представить результат ещё до начала ремонта.
-            </p>
-          </div>
-          
-          <div class="review-card">
-            <div class="review-card__header">
-              <div class="review-card__avatar">АП</div>
-              <div class="review-card__info">
-                <div class="review-card__name">Андрей Петров</div>
-                <div class="review-card__project">Таунхаус 95 м²</div>
-              </div>
-              <div class="review-card__stars">
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              </div>
-            </div>
-            <p class="review-card__text">
-              Главное преимущество — экономия без потери качества. Анна сразу сказала, где можно сэкономить, а где лучше не торопиться. Благодаря её советам уложились в бюджет и получили интерьер, который выглядит дорого. Чертежи были настолько подробными, что наша бригада работала без лишних вопросов.
-            </p>
-          </div>
-          
-          <div class="review-card review-card--hidden">
-            <div class="review-card__header">
-              <div class="review-card__avatar">ОМ</div>
-              <div class="review-card__info">
-                <div class="review-card__name">Ольга Морозова</div>
-                <div class="review-card__project">Квартира 72 м²</div>
-              </div>
-              <div class="review-card__stars">
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              </div>
-            </div>
-            <p class="review-card__text">
-              Брали тариф «Расширенный» — очень довольны. Подбор мебели и декора сэкономил кучу времени. Анна учла наш бюджет и нашла оптимальные варианты. Особенно понравилось, что она подготовила ТЗ для мебельщиков — всё сделали точно по проекту, без переделок.
-            </p>
-          </div>
-          
-          <div class="review-card review-card--hidden">
-            <div class="review-card__header">
-              <div class="review-card__avatar">СИ</div>
-              <div class="review-card__info">
-                <div class="review-card__name">Сергей Иванов</div>
-                <div class="review-card__project">Дом 150 м²</div>
-              </div>
-              <div class="review-card__stars">
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              </div>
-            </div>
-            <p class="review-card__text">
-              Инженерный подход Анны сразу чувствуется — все решения продуманы до мелочей. Когда строители задавали вопросы, она быстро находила ответы и вносила корректировки прямо в процессе. Никакого хаоса, всё под контролем. Результат превзошёл ожидания — интерьер получился именно таким, как на визуализациях.
-            </p>
-          </div>
-          
-          <div class="review-card review-card--hidden">
-            <div class="review-card__header">
-              <div class="review-card__avatar">НК</div>
-              <div class="review-card__info">
-                <div class="review-card__name">Наталья Кузнецова</div>
-                <div class="review-card__project">Квартира 58 м²</div>
-              </div>
-              <div class="review-card__stars">
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              </div>
-            </div>
-            <p class="review-card__text">
-              В маленькой квартире нужно было разместить всё необходимое, не превратив её в склад. Анна предложила несколько вариантов планировок, мы выбрали лучший. Теперь у нас есть и рабочее место, и зона отдыха, и достаточно места для хранения. Всё эргономично и удобно. Спасибо за внимательность к деталям!
-            </p>
-          </div>
-          
-          <div class="review-card review-card--hidden">
-            <div class="review-card__header">
-              <div class="review-card__avatar">ВН</div>
-              <div class="review-card__info">
-                <div class="review-card__name">Владимир Новиков</div>
-                <div class="review-card__project">Квартира 110 м²</div>
-              </div>
-              <div class="review-card__stars">
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              </div>
-            </div>
-            <p class="review-card__text">
-              Работали с партнёрской бригадой, поэтому сопровождение было бесплатным — приятный бонус! Анна контролировала каждый этап, строители всегда могли уточнить детали. Когда один из материалов закончился, она быстро подобрала замену, которая не испортила общую концепцию. Профессионализм на высшем уровне, рекомендую!
-            </p>
-          </div>
+        <div class="reviews__grid stagger" id="reviewsGrid">
+          <!-- Reviews loaded dynamically from database -->
         </div>
         
         <div class="reviews__more">
@@ -1584,5 +1426,6 @@
 
   <!-- Scripts -->
   <script src="js/main.js"></script>
+  <script src="js/reviews.js"></script>
 </body>
 </html>

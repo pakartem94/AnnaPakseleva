@@ -1,0 +1,20 @@
+# Запрет листинга директорий
+Options -Indexes
+
+# Защита от прямого доступа к конфигурационным файлам
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|md)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Защита папки md (полный запрет доступа)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^md/ - [F,L]
+</IfModule>
+
+# Защита от доступа к скрытым файлам
+<FilesMatch "^\.">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>

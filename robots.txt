@@ -2,6 +2,7 @@
 
 User-agent: *
 Allow: /
+Disallow: /admin/
 Disallow: /api/
 Disallow: /logs/
 Disallow: /md/
@@ -15,7 +16,7 @@ Allow: /css/
 Allow: /js/
 
 # Sitemap
-Sitemap: https://annapakseleva.ru/sitemap.xml
+Sitemap: https://studioap.ru/sitemap.xml
 
 # Crawl-delay для вежливой индексации
 Crawl-delay: 1

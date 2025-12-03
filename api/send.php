@@ -16,13 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Configuration
 $config = [
-    'email_to' => 'your-email@example.com', // Замените на реальный email
-    'email_from' => 'noreply@annapakseleva.ru',
+    'email_to' => 'ann-ki@mail.ru',
+    'email_from' => 'no-reply@studioap.ru',
     'email_name' => 'Сайт студии Анны Пакселевой',
     'db_host' => 'localhost',
-    'db_name' => 'annapakseleva',
-    'db_user' => 'root',
-    'db_pass' => '',
+    'db_name' => 'pakart06_studio',
+    'db_user' => 'pakart06_studio',
+    'db_pass' => 'IRYtg!RMph4V',
 ];
 
 // Honeypot check
@@ -209,8 +209,7 @@ $email_sent = mail(
     implode("\r\n", $headers)
 );
 
-// Save to database (optional - uncomment if database is configured)
-/*
+// Save to database
 try {
     $pdo = new PDO(
         "mysql:host={$config['db_host']};dbname={$config['db_name']};charset=utf8mb4",
@@ -225,11 +224,11 @@ try {
     $sql = "INSERT INTO leads (
         created_at, name, phone, messenger, type, tariff, 
         object_type, area, stage, comment,
-        utm_source, utm_medium, utm_campaign, ip, user_agent
+        utm_source, utm_medium, utm_campaign, ip, user_agent, status
     ) VALUES (
         :created_at, :name, :phone, :messenger, :type, :tariff,
         :object_type, :area, :stage, :comment,
-        :utm_source, :utm_medium, :utm_campaign, :ip, :user_agent
+        :utm_source, :utm_medium, :utm_campaign, :ip, :user_agent, 'new'
     )";
 
     $stmt = $pdo->prepare($sql);
@@ -253,7 +252,6 @@ try {
 } catch (PDOException $e) {
     error_log('Database error: ' . $e->getMessage());
 }
-*/
 
 // Save to file as backup
 $log_file = __DIR__ . '/../logs/leads.log';

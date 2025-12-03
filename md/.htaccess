@@ -1,0 +1,4 @@
+# Полный запрет доступа к папке md
+Order Allow,Deny
+Deny from all
+
