@@ -37,6 +37,18 @@ $statusFilterSQL = $statusFilter !== 'all' ? "WHERE status = " . $pdo->quote($st
 // Get leads
 $leads = $pdo->query("SELECT * FROM leads $statusFilterSQL ORDER BY created_at DESC")->fetchAll();
 
+// Функция перевода статусов
+function getStatusLabel($status) {
+    $labels = [
+        'new' => 'Новая',
+        'contacted' => 'Связались',
+        'in_progress' => 'В работе',
+        'completed' => 'Завершена',
+        'rejected' => 'Отклонена',
+    ];
+    return $labels[$status] ?? $status;
+}
+
 // Get statistics
 $stats = [
     'all' => $pdo->query("SELECT COUNT(*) FROM leads")->fetchColumn(),
@@ -44,6 +56,7 @@ $stats = [
     'contacted' => $pdo->query("SELECT COUNT(*) FROM leads WHERE status = 'contacted'")->fetchColumn(),
     'in_progress' => $pdo->query("SELECT COUNT(*) FROM leads WHERE status = 'in_progress'")->fetchColumn(),
     'completed' => $pdo->query("SELECT COUNT(*) FROM leads WHERE status = 'completed'")->fetchColumn(),
+    'rejected' => $pdo->query("SELECT COUNT(*) FROM leads WHERE status = 'rejected'")->fetchColumn(),
 ];
 ?>
 <!DOCTYPE html>
@@ -87,6 +100,9 @@ $stats = [
                     <a href="?status=completed" class="admin-btn <?= $statusFilter === 'completed' ? 'admin-btn--active' : 'admin-btn--secondary' ?>">
                         Завершены (<?= $stats['completed'] ?>)
                     </a>
+                    <a href="?status=rejected" class="admin-btn <?= $statusFilter === 'rejected' ? 'admin-btn--active' : 'admin-btn--secondary' ?>">
+                        Отклонены (<?= $stats['rejected'] ?>)
+                    </a>
                 </div>
             </div>
             
@@ -120,7 +136,7 @@ $stats = [
                                         <td><?= htmlspecialchars($lead['tariff'] ?: '-') ?></td>
                                         <td>
                                             <span class="admin-badge admin-badge--<?= $lead['status'] ?>">
-                                                <?= htmlspecialchars($lead['status']) ?>
+                                                <?= htmlspecialchars(getStatusLabel($lead['status'])) ?>
                                             </span>
                                         </td>
                                         <td>

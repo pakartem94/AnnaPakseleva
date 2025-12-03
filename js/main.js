@@ -378,6 +378,14 @@
         body: formData
       });
 
+      // Проверяем, что ответ действительно JSON
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        console.error('Non-JSON response:', text);
+        throw new Error('Сервер вернул некорректный ответ');
+      }
+
       const result = await response.json();
 
       if (response.ok && result.success) {
@@ -394,6 +402,10 @@
       }
     } catch (error) {
       console.error('Form submission error:', error);
+      // Более информативное сообщение об ошибке
+      if (error.message) {
+        console.error('Error details:', error.message);
+      }
       alert('Произошла ошибка. Попробуйте позже или свяжитесь с нами напрямую.');
     }
   }

@@ -4,6 +4,34 @@
  * Anna Pakseleva Design Studio
  */
 
+// Отключаем вывод ошибок в продакшене (ошибки будут логироваться)
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+
+// Устанавливаем обработчик ошибок для JSON ответов
+set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    // Логируем ошибку
+    error_log("PHP Error in send.php: [$errno] $errstr in $errfile on line $errline");
+    // Не прерываем выполнение для warning/notice
+    return false;
+});
+
+// Устанавливаем обработчик критических ошибок
+register_shutdown_function(function() {
+    $error = error_get_last();
+    if ($error !== NULL && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
+        // Критическая ошибка - возвращаем JSON с ошибкой
+        header('Content-Type: application/json; charset=UTF-8');
+        http_response_code(500);
+        echo json_encode([
+            'success' => false,
+            'error' => 'Произошла ошибка при обработке запроса'
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+});
+
 // Set JSON header early for all responses
 header('Content-Type: application/json; charset=UTF-8');
 
@@ -14,8 +42,38 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Configuration
-require_once __DIR__ . '/../admin/config.php';
+// Configuration - загружаем БД конфиг без сессии и заголовков
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'pakart06_studio');
+define('DB_USER', 'pakart06_studio');
+define('DB_PASS', 'IRYtg!RMph4V');
+
+// Get PDO connection (без сессии)
+function getDB() {
+    static $pdo = null;
+    if ($pdo === null) {
+        try {
+            $pdo = new PDO(
+                "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4",
+                DB_USER,
+                DB_PASS,
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                ]
+            );
+        } catch (PDOException $e) {
+            error_log('Database connection failed in send.php: ' . $e->getMessage());
+            throw $e; // Пробрасываем исключение для обработки выше
+        }
+    }
+    return $pdo;
+}
+
+// Sanitize input
+function sanitize($input) {
+    return htmlspecialchars(strip_tags(trim($input)), ENT_QUOTES, 'UTF-8');
+}
 
 // Базовая защита от спама (rate limiting через файл)
 $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
@@ -24,24 +82,25 @@ $rateLimitTime = 60; // 60 секунд
 $maxRequests = 5; // максимум 5 запросов в минуту
 
 // Проверка rate limit
+$rateLimitData = null;
 if (file_exists($rateLimitFile)) {
-    $data = json_decode(file_get_contents($rateLimitFile), true);
-    if ($data && (time() - $data['time']) < $rateLimitTime) {
-        if ($data['count'] >= $maxRequests) {
+    $rateLimitData = json_decode(file_get_contents($rateLimitFile), true);
+    if ($rateLimitData && (time() - $rateLimitData['time']) < $rateLimitTime) {
+        if ($rateLimitData['count'] >= $maxRequests) {
             http_response_code(429);
             echo json_encode(['success' => false, 'error' => 'Слишком много запросов. Попробуйте позже.'], JSON_UNESCAPED_UNICODE);
             exit;
         }
-        $data['count']++;
+        $rateLimitData['count']++;
     } else {
-        $data = ['count' => 1, 'time' => time()];
+        $rateLimitData = ['count' => 1, 'time' => time()];
     }
 } else {
-    $data = ['count' => 1, 'time' => time()];
+    $rateLimitData = ['count' => 1, 'time' => time()];
 }
 
 // Сохраняем данные rate limit
-@file_put_contents($rateLimitFile, json_encode($data), LOCK_EX);
+@file_put_contents($rateLimitFile, json_encode($rateLimitData), LOCK_EX);
 
 $config = [
     'email_to' => 'ann-ki@mail.ru',
@@ -54,11 +113,6 @@ if (!empty($_POST['website'])) {
     http_response_code(200);
     echo json_encode(['success' => true], JSON_UNESCAPED_UNICODE);
     exit;
-}
-
-// Sanitize input
-function sanitize($input) {
-    return htmlspecialchars(strip_tags(trim($input)), ENT_QUOTES, 'UTF-8');
 }
 
 // Get form data
@@ -86,8 +140,8 @@ if (empty($data['name']) || empty($data['phone'])) {
     exit;
 }
 
-// Validate privacy agreement
-if (empty($_POST['privacy_agree'])) {
+// Validate privacy agreement (чекбокс может не отправляться, если не отмечен)
+if (!isset($_POST['privacy_agree']) || empty($_POST['privacy_agree'])) {
     http_response_code(400);
     echo json_encode(['success' => false, 'error' => 'Необходимо согласие с политикой конфиденциальности'], JSON_UNESCAPED_UNICODE);
     exit;
@@ -241,6 +295,7 @@ $email_sent = mail(
 );
 
 // Save to database
+$db_error = false;
 try {
     $pdo = getDB();
 
@@ -273,9 +328,19 @@ try {
         'user_agent' => $data['user_agent'],
     ]);
 } catch (PDOException $e) {
-    // Логируем ошибку, но не раскрываем детали пользователю
+    // Логируем ошибку с полной информацией
+    $db_error = true;
     error_log('Database error in send.php: ' . $e->getMessage());
-    // Продолжаем выполнение - email уже отправлен
+    if (isset($sql)) {
+        error_log('SQL: ' . $sql);
+    }
+    error_log('Data: ' . print_r($data, true));
+    // Продолжаем выполнение - email уже отправлен, данные сохранены в лог
+} catch (Exception $e) {
+    // Обработка других исключений (например, ошибка подключения)
+    $db_error = true;
+    error_log('Error in send.php: ' . $e->getMessage());
+    // Продолжаем выполнение
 }
 
 // Save to file as backup
@@ -294,9 +359,9 @@ if (file_exists($log_file)) {
 $log_entry = date('Y-m-d H:i:s') . ' | ' . json_encode($data, JSON_UNESCAPED_UNICODE) . PHP_EOL;
 @file_put_contents($log_file, $log_entry, FILE_APPEND | LOCK_EX);
 
-// Response
+// Response (всегда возвращаем успех, даже если БД не сохранила - email отправлен, данные в логе)
 echo json_encode([
     'success' => true,
     'message' => 'Заявка успешно отправлена',
-], JSON_UNESCAPED_UNICODE);
+], JSON_UNESCAPED_UNICODE | JSON_PARTIAL_OUTPUT_ON_ERROR);
 

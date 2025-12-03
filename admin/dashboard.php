@@ -4,6 +4,18 @@ requireLogin();
 
 $pdo = getDB();
 
+// Функция перевода статусов
+function getStatusLabel($status) {
+    $labels = [
+        'new' => 'Новая',
+        'contacted' => 'Связались',
+        'in_progress' => 'В работе',
+        'completed' => 'Завершена',
+        'rejected' => 'Отклонена',
+    ];
+    return $labels[$status] ?? $status;
+}
+
 // Get statistics
 $stats = [
     'leads_new' => $pdo->query("SELECT COUNT(*) FROM leads WHERE status = 'new'")->fetchColumn(),
@@ -105,7 +117,7 @@ $recentLeads = $pdo->query("SELECT * FROM leads ORDER BY created_at DESC LIMIT 5
                                         <td><?= htmlspecialchars($lead['type']) ?></td>
                                         <td>
                                             <span class="admin-badge admin-badge--<?= $lead['status'] ?>">
-                                                <?= htmlspecialchars($lead['status']) ?>
+                                                <?= htmlspecialchars(getStatusLabel($lead['status'])) ?>
                                             </span>
                                         </td>
                                         <td>
