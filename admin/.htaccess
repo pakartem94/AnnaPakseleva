@@ -22,3 +22,10 @@ Header set X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
     Deny from all
 </Files>
 
+# Защита скрипта сброса пароля (разрешаем доступ только с секретным ключом)
+# После использования скрипта рекомендуется удалить этот файл
+<Files "reset-password.php">
+    Order Allow,Deny
+    Allow from all
+</Files>
+
