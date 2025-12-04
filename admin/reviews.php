@@ -39,7 +39,7 @@ $reviews = $pdo->query("SELECT * FROM reviews ORDER BY sort_order ASC, created_a
         <main class="admin-main">
             <div class="admin-header">
                 <h1>Управление отзывами</h1>
-                <button class="admin-btn" onclick="openReviewModal()">Добавить отзыв</button>
+                <button type="button" class="admin-btn" id="addReviewBtn">Добавить отзыв</button>
             </div>
             
             <?php if ($message): ?>
@@ -149,10 +149,18 @@ $reviews = $pdo->query("SELECT * FROM reviews ORDER BY sort_order ASC, created_a
     
     <script src="admin.js"></script>
     <script>
-        async function openReviewModal(id = null) {
+        window.openReviewModal = async function(id = null) {
+            console.log('openReviewModal вызвана', id);
             const modal = document.getElementById('reviewModal');
             const form = document.getElementById('reviewForm');
             const title = document.getElementById('modalTitle');
+            
+            console.log('Элементы:', { modal, form, title });
+            
+            if (!modal || !form || !title) {
+                console.error('Модальное окно не найдено');
+                return;
+            }
             
             if (id) {
                 title.textContent = 'Редактировать отзыв';
@@ -184,51 +192,83 @@ $reviews = $pdo->query("SELECT * FROM reviews ORDER BY sort_order ASC, created_a
             }
             
             modal.classList.remove('modal--hidden');
-        }
+            modal.style.display = 'flex';
+            modal.style.visibility = 'visible';
+            modal.style.opacity = '1';
+        };
         
-        function closeReviewModal() {
-            document.getElementById('reviewModal').classList.add('modal--hidden');
-        }
+        window.closeReviewModal = function() {
+            const modal = document.getElementById('reviewModal');
+            if (modal) {
+                modal.classList.add('modal--hidden');
+                modal.style.display = 'none';
+                modal.style.visibility = 'hidden';
+            }
+        };
         
-        function editReview(id) {
+        window.editReview = function(id) {
             openReviewModal(id);
-        }
+        };
         
-        document.getElementById('reviewForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const data = {
-                id: formData.get('id') || null,
-                name: formData.get('name'),
-                project: formData.get('project'),
-                text: formData.get('text'),
-                rating: parseInt(formData.get('rating')),
-                sort_order: parseInt(formData.get('sort_order')) || 0,
-                is_published: formData.get('is_published') ? 1 : 0
-            };
-            
-            const method = data.id ? 'PUT' : 'POST';
-            const url = 'api/reviews.php';
-            
-            try {
-                const response = await fetch(url, {
-                    method: method,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Обработчик кнопки "Добавить отзыв"
+            const addReviewBtn = document.getElementById('addReviewBtn');
+            console.log('Кнопка найдена:', addReviewBtn);
+            if (addReviewBtn) {
+                addReviewBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Кнопка "Добавить отзыв" нажата');
+                    if (typeof openReviewModal === 'function') {
+                        openReviewModal();
+                    } else {
+                        console.error('Функция openReviewModal не найдена');
+                    }
                 });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    location.reload();
-                } else {
-                    alert(result.error || 'Ошибка при сохранении');
-                }
-            } catch (error) {
-                alert('Ошибка: ' + error.message);
+            } else {
+                console.error('Кнопка "Добавить отзыв" не найдена');
+            }
+            
+            // Обработчик формы
+            const reviewForm = document.getElementById('reviewForm');
+            if (reviewForm) {
+                reviewForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(e.target);
+                    const data = {
+                        id: formData.get('id') || null,
+                        name: formData.get('name'),
+                        project: formData.get('project'),
+                        text: formData.get('text'),
+                        rating: parseInt(formData.get('rating')),
+                        sort_order: parseInt(formData.get('sort_order')) || 0,
+                        is_published: formData.get('is_published') ? 1 : 0
+                    };
+                    
+                    const method = data.id ? 'PUT' : 'POST';
+                    const url = 'api/reviews.php';
+                    
+                    try {
+                        const response = await fetch(url, {
+                            method: method,
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        });
+                        
+                        const result = await response.json();
+                        
+                        if (result.success) {
+                            location.reload();
+                        } else {
+                            alert(result.error || 'Ошибка при сохранении');
+                        }
+                    } catch (error) {
+                        alert('Ошибка: ' + error.message);
+                    }
+                });
             }
         });
     </script>
@@ -241,9 +281,12 @@ $reviews = $pdo->query("SELECT * FROM reviews ORDER BY sort_order ASC, created_a
             align-items: center;
             justify-content: center;
             background: rgba(0, 0, 0, 0.5);
+            visibility: visible;
+            opacity: 1;
         }
         .modal--hidden {
             display: none;
+            visibility: hidden;
         }
         .modal__content {
             background: var(--color-bg-card);
@@ -253,21 +296,6 @@ $reviews = $pdo->query("SELECT * FROM reviews ORDER BY sort_order ASC, created_a
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
-        }
-        .modal__close {
-            position: absolute;
-            top: var(--space-md);
-            right: var(--space-md);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--color-bg-main);
-            border: none;
-            cursor: pointer;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         .modal__close {
             position: absolute;
